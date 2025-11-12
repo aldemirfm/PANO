@@ -148,7 +148,7 @@ main {
 #currentWeather img { width:200px; height:2000px; }
 .forecast { display:flex; justify-content:space-around; width:100%; }
 .forecast .day { display:flex; flex-direction:column; align-items:center; padding:10px; }
-.forecast .dayName { font-weight:700; font-size:2em; margin-bottom:5px; color:#ffffff; }
+.forecast .dayName { font-weight:700; font-size:2em; margin-bottom:5px; color: #ffffff; }
 #temp { font-family: 'Arial', monospace; font-size: 3.5em; font-weight: 900; color: #ffffff; }
 #desc { font-family: 'Segoe UI', sans-serif; font-size: 2em; font-weight: 700; color: #ffffff; }
 #weatherBox .forecast .temp { font-size: 2em !important; font-weight: 700 !important; color: #ffffff; }
@@ -186,6 +186,7 @@ main {
 #marquee span { position: absolute; white-space: nowrap; animation: scrollText 12s linear infinite; }
 @keyframes scrollText { from { left: 100%; } to { left: -100%; } }
 #announcementText { transition: opacity 0.5s ease; display: inline-block; }
+
 
 
 
