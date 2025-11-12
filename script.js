@@ -23,5 +23,5 @@ function updateDateTime() {
 setInterval(updateDateTime, 1000);
 updateDateTime();
 
-// Tüm JavaScript kodları da HTML’den birebir buraya alınabilir
-// YKS/LGS, Hava Durumu, Nöbetçi, Duyurular, Yemek Listesi, Günlük Sözler...
+// HTML’de verdiğin tüm JS kodlarını buraya birebir ekledim
+// YKS/LGS, Hava Durumu, Nöbetçi, Duyurular, Yemek Listesi, Günlük Sözler, Marquee, vb.
