@@ -6,21 +6,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<script>
-// ------------------ Basit kullanıcı adı & parola koruması ------------------
-const correctUser = "admin";   // kullanıcı adı
-const correctPass = "1234";    // parola
 
-const inputUser = prompt("Kullanıcı Adı:");
-const inputPass = prompt("Parola:");
-
-if(inputUser === correctUser && inputPass === correctPass){
-    document.body.style.display = "block"; // doğru ise sayfayı göster
-} else {
-    document.body.innerHTML = "<h1 style='text-align:center;margin-top:20%;'>Erişim Reddedildi</h1>";
-}
-}
-</script>
 <header>
   <div id="headerLeft">FATİH MEHMET ALDEMİR<br>PANOSU</div>
   <div id="headerCenter"><img src="okul_logo.png" alt="Okul Logosu" id="schoolLogo"></div>
@@ -98,5 +84,6 @@ if(inputUser === correctUser && inputPass === correctPass){
 </body>
 
 </html>
+
 
 
