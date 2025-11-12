@@ -30,7 +30,7 @@ main {
   flex:1 1 auto;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: repeat(3fr 1fr);
+  grid-template-rows: repeat(3 1fr);
   gap: 5px;
   padding: 5px;
   align-items: stretch; /* kutuların yüksekliğini eşitle */
@@ -186,3 +186,4 @@ main {
 #marquee span { position: absolute; white-space: nowrap; animation: scrollText 12s linear infinite; }
 @keyframes scrollText { from { left: 100%; } to { left: -100%; } }
 #announcementText { transition: opacity 0.5s ease; display: inline-block; }
+
