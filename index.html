@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <body style="display:none;">
 <script>
 // ------------------ Basit kullanıcı adı & parola koruması ------------------
 const correctUser = "admin";   // kullanıcı adı
@@ -14,9 +15,11 @@ const correctPass = "1234";    // parola
 const inputUser = prompt("Kullanıcı Adı:");
 const inputPass = prompt("Parola:");
 
-if(inputUser !== correctUser || inputPass !== correctPass){
+if(inputUser === correctUser && inputPass === correctPass){
+    document.body.style.display = "block"; // doğru ise sayfayı göster
+} else {
     document.body.innerHTML = "<h1 style='text-align:center;margin-top:20%;'>Erişim Reddedildi</h1>";
-    throw new Error("Erişim reddedildi");
+}
 }
 </script>
 <header>
@@ -96,3 +99,4 @@ if(inputUser !== correctUser || inputPass !== correctPass){
 </body>
 
 </html>
+
