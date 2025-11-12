@@ -1,160 +1,51 @@
-/* === GENEL AYARLAR === */
-* { margin:0; padding:0; box-sizing:border-box; }
-html, body { width:100%; height:100%; }
-body {
-  display:flex;
-  flex-direction:column;
-  font-family:"Segoe UI",Arial,sans-serif;
-  background:#f3f6fa;
-  overflow:hidden;
-}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Okul Panosu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="dashboard">
 
-/* === HEADER === */
-header {
-  flex:0 0 10%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 20px;
-  background: linear-gradient(90deg,#2f26bf, #0D1A36);
-  box-shadow:0 2px 4px rgba(0,0,0,0.08);
-}
-#headerLeft { flex:1; font-size:2em; font-weight:900; color:#fff; text-align:left; }
-#headerCenter { flex:0 0 auto; display:flex; justify-content:center; align-items:center; }
-#schoolLogo { max-height:500px; max-width:500px; object-fit:contain; }
-#headerRight { flex:1; display:flex; align-items:center; justify-content:flex-end; gap:10px; font-family:'Segoe UI',Arial,sans-serif; }
-#dayMonth { font-size:3em; font-weight:700; color:#FFFFFF; }
-#time { font-size:4em; font-weight:800; color:#FFFFFF; }
+    <!-- LOGO VE TARİH -->
+    <div class="box" id="headerBox">
+      <img src="okul_logo.png" alt="Okul Logosu" id="schoolLogo">
+      <div id="dateTime"></div>
+    </div>
 
-/* === MAIN GRID === */
-main {
-  flex:1 1 auto;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: repeat(3, 1fr);
-  gap: 5px;
-  padding: 5px;
-  align-items: stretch;
-}
+    <!-- HAVA DURUMU -->
+    <div class="box" id="weatherBox">
+      <img id="weatherIcon" src="icons/sunny.png" alt="Hava Durumu" />
+      <div id="temperature"></div>
+      <div id="weatherDesc"></div>
+    </div>
 
-/* === BOX GENEL === */
-.box {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  text-align: center;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  padding: 15px;
-  font-size: var(--box-font-size,1.5em);
-  font-family: var(--box-font-family,'Roboto',sans-serif);
-  font-weight: var(--box-font-weight,700);
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.box:hover { transform:translateY(-6px); box-shadow:0px 12px 24px rgba(0,0,0,0.12); }
+    <!-- DUYURU -->
+    <div class="box" id="noticeBox">
+      <div class="boxTitle">DUYURU</div>
+      <div id="noticeContent">Hoş geldiniz!</div>
+    </div>
 
-/* === BOX TITLE === */
-.boxTitle {
-  width: 100%;
-  text-align: center;
-  font-size: 2em;
-  font-weight: 900;
-  padding-bottom: 8px;
-  margin-bottom: 12px;
-  border-bottom: 3px solid rgba(255,255,255,0.4);
-}
+    <!-- KAYAN YAZI -->
+    <div class="marquee">
+      <span>Okul Panosu - Günaydın! Başarı dolu bir gün dileriz 🌞</span>
+    </div>
 
-/* === ÖZEL BOXLAR === */
-#verseBox {
-  --box-font-size: 2em;
-  --box-color: #FEFEFE;
-  background: linear-gradient(0deg, #3a0fcf, #16013B);
-  color: #fff;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-}
+    <!-- ALTTAKİ İKİ YENİ KUTU -->
+    <div class="box" id="newBox1">
+      <div class="boxTitle">SOL KUTU</div>
+      <div id="box1Content">İçerik 1</div>
+    </div>
 
-#nobetci { 
-  --box-font-size:1.4em;
-  --box-color:#3379545;
-  background: linear-gradient(180deg,#000000,#202d58);
-}
-#nobetciList { text-align: left; }
-.nobetPlace { color: #ffd63e; font-weight:700; font-size:1.2em; display:inline-block; width:120px; vertical-align: top; }
-.nobetTeacher { color: #ffffff; font-size:1em; display:inline-block; }
-.nobetRow { margin-bottom: 8px; }
-#nobetciTitle { font-size:1.1em; font-weight:800; color:#ffffff; }
+    <div class="box" id="newBox2">
+      <div class="boxTitle">SAĞ KUTU</div>
+      <div id="box2Content">İçerik 2</div>
+    </div>
 
-/* === CENTER BOX (DUYURULAR) === */
-#centerBox {
-  --box-font-size:2.1em;
-  --box-color:#ffffff;
-  background: linear-gradient(0deg, #4903C3, #16013B);
-  display:flex; 
-  justify-content:center; 
-  align-items:center;
-  text-align:center;
-  color:#fff;
-}
-#announcementTitle { font-size:1em; font-weight:800; color:#ffffff; }
-#announcementText { display:flex; justify-content:center; align-items:center; text-align:center; width:100%; height:100%; animation: blink 3s infinite; }
+  </div>
 
-/* === HAVA DURUMU === */
-#weatherBox {
-  --box-font-size:1em;
-  --box-color:#0d47a1;
-  background: linear-gradient(0deg, #11e2ff, #337987);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-#weatherBoxTitle { font-size:2em; font-weight:800; color:#fff; }
-#currentWeather { display:flex; justify-content:space-between; align-items:center; gap:15px; margin-bottom:15px; width:100%; }
-#currentWeather > div { flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
-#currentWeather img { width:150px; height:150px; }
-.forecast { display:flex; justify-content:space-around; width:100%; }
-.forecast .day { display:flex; flex-direction:column; align-items:center; padding:10px; }
-.forecast .dayName { font-weight:700; font-size:2em; margin-bottom:5px; color:#003366; }
-#temp { font-family:'Arial', monospace; font-size:3.5em; font-weight:900; color:#000000; }
-#desc { font-family:'Segoe UI', sans-serif; font-size:2em; font-weight:700; color:#2c6b0c; }
-#weatherBox .forecast .temp { font-size:2em !important; font-weight:700 !important; color:#2c6b0c; }
-#weatherBox #weatherIcon, #weatherBox .forecast img { animation: weatherIconMove 3s ease-in-out infinite, weatherIconGlow 3s ease-in-out infinite; filter: drop-shadow(0 0 10px rgba(0, 140, 255, 0.8)); }
-
-@keyframes weatherIconMove { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
-@keyframes weatherIconGlow { 0% { filter: drop-shadow(0 0 6px rgba(0,140,255,.5)); } 50% { filter: drop-shadow(0 0 22px rgba(0,140,255,.95)); } 100% { filter: drop-shadow(0 0 6px rgba(0,140,255,.5)); } }
-
-/* === YKS & LGS === */
-#examCountdown { display:flex; flex-direction:row; justify-content:center; align-items:center; gap:3px; height:100%; }
-.countdownBox { height:100%; box-sizing:border-box; flex:1; min-width:100px; padding:5px; border-radius:20px; display:flex; flex-direction:column; justify-content:center; align-items:center; font-size:1.5em; font-weight:700; color:white; box-shadow:0 5px 15px rgba(0,0,0,0.1); background: linear-gradient(0deg, #ff0000,#000000); }
-.countdownBox .boxTitle { font-size:1.2em; font-weight:800; margin-bottom:5px; color:white; }
-.countdownBox .timeValueText { font-size:0.7em; font-weight:800; }
-.countdownBox .timeValueNum { font-size:1.5em; font-weight:900; color:#00ff00; }
-
-/* === SOL ve SAĞ KUTULAR === */
-#solkutu { display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; background: linear-gradient(180deg, #338e06, #6eeba5); }
-#solkutu .boxTitle { display:none; }
-#box1Content { font-size:1.5em; font-weight:700; color:#6f0202; }
-#sağkutu { display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; background: linear-gradient(180deg, #ffa506, #ffe706); }
-#sağkutu .boxTitle { display:none; }
-#box2Content { font-size:1em; font-weight:500; color:#424242; }
-
-/* === MENU === */
-#menuBox { grid-column:3; grid-row:2; background: linear-gradient(0deg, #3ae40e,#3ae40e,#000000); --box-font-size:2.5em; --box-font-family:'Roboto'; --box-font-weight:700; --box-color:#222; }
-#menuTitle { font-size:1em; font-weight:800; color:#fff; }
-#menuList { display:flex; justify-content:center; align-items:center; text-align:center; width:100%; height:100%; line-height:1.5em; }
-
-/* === MARQUEE === */
-#marquee { flex:0 0 auto; min-height:70px; max-height:15vh; background:#003366; color:white; display:flex; justify-content:center; align-items:center; overflow:hidden; font-size:calc(3vw+1em); font-weight:800; letter-spacing:2px; position:relative; }
-#marquee span { position:absolute; white-space:nowrap; animation:scrollText 12s linear infinite; }
-@keyframes scrollText { from { left:100%; } to { left:-100%; } }
-
-/* === ANİMASYON === */
-@keyframes blink { 0%,50%,100% { opacity:1; } 25%,75% { opacity:0.7; } }
+  <script src="script.js"></script>
+</body>
+</html>
