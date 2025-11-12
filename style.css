@@ -123,7 +123,7 @@ main {
 
 #announcementTitle { font-size: 1em; font-weight: 800; color: #ffffff; }
 
-@keyframes blink { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0.5; } }
+@keyframes blink { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0; } }
 
 #announcementText { display: flex; justify-content: center; align-items: center; text-align: center; width: 100%; height: 100%; animation: blink 3s infinite; }
 
@@ -145,13 +145,13 @@ main {
 #weatherBoxTitle { font-size: 2em; font-weight: 800; color: #ffffff; }
 #currentWeather { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 15px; width: 100%; }
 #currentWeather > div { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-#currentWeather img { width:200px; height:2000px; }
+#currentWeather img { width:150px; height:150px; }
 .forecast { display:flex; justify-content:space-around; width:100%; }
 .forecast .day { display:flex; flex-direction:column; align-items:center; padding:10px; }
-.forecast .dayName { font-weight:700; font-size:2em; margin-bottom:5px; color: #ffffff; }
-#temp { font-family: 'Arial', monospace; font-size: 3.5em; font-weight: 900; color: #ffffff; }
-#desc { font-family: 'Segoe UI', sans-serif; font-size: 2em; font-weight: 700; color: #ffffff; }
-#weatherBox .forecast .temp { font-size: 2em !important; font-weight: 700 !important; color: #ffffff; }
+.forecast .dayName { font-weight:700; font-size:2em; margin-bottom:5px; color:#003366; }
+#temp { font-family: 'Arial', monospace; font-size: 3.5em; font-weight: 900; color: #000000; }
+#desc { font-family: 'Segoe UI', sans-serif; font-size: 2em; font-weight: 700; color: #2c6b0c; }
+#weatherBox .forecast .temp { font-size: 2em !important; font-weight: 700 !important; color: #2c6b0c; }
 #weatherBox #weatherIcon, #weatherBox .forecast img { animation: weatherIconMove 3s ease-in-out infinite, weatherIconGlow 3s ease-in-out infinite; filter: drop-shadow(0 0 10px rgba(0, 140, 255, 0.8)); }
 
 @keyframes weatherIconMove { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
@@ -186,8 +186,3 @@ main {
 #marquee span { position: absolute; white-space: nowrap; animation: scrollText 12s linear infinite; }
 @keyframes scrollText { from { left: 100%; } to { left: -100%; } }
 #announcementText { transition: opacity 0.5s ease; display: inline-block; }
-
-
-
-
-
