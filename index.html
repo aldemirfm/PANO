@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Okul Panosu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="dashboard">
+
+    <!-- LOGO VE TARİH -->
+    <div class="box" id="headerBox">
+      <img src="okul_logo.png" alt="Okul Logosu" id="schoolLogo">
+      <div id="dateTime"></div>
+    </div>
+
+    <!-- HAVA DURUMU -->
+    <div class="box" id="weatherBox">
+      <img id="weatherIcon" src="icons/sunny.png" alt="Hava Durumu" />
+      <div id="temperature"></div>
+      <div id="weatherDesc"></div>
+    </div>
+
+    <!-- DUYURU -->
+    <div class="box" id="noticeBox">
+      <div class="boxTitle">DUYURU</div>
+      <div id="noticeContent">Hoş geldiniz!</div>
+    </div>
+
+    <!-- KAYAN YAZI -->
+    <div class="marquee">
+      <span>Okul Panosu - Günaydın! Başarı dolu bir gün dileriz 🌞</span>
+    </div>
+
+    <!-- ALTTAKİ İKİ YENİ KUTU -->
+    <div class="box" id="newBox1">
+      <div class="boxTitle">SOL KUTU</div>
+      <div id="box1Content">İçerik 1</div>
+    </div>
+
+    <div class="box" id="newBox2">
+      <div class="boxTitle">SAĞ KUTU</div>
+      <div id="box2Content">İçerik 2</div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
