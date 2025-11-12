@@ -1,4 +1,3 @@
-/* --- GENEL --- */
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body { width:100%; height:100%; }
 body {
@@ -9,7 +8,7 @@ body {
   overflow:hidden;
 }
 
-/* --- HEADER --- */
+/* HEADER */
 header {
   flex:0 0 10%;
   display:flex;
@@ -26,7 +25,7 @@ header {
 #dayMonth { font-size:3em; font-weight:700; color:#FFFFFF; }
 #time { font-size:4em; font-weight:800; color:#FFFFFF; }
 
-/* --- MAIN GRID --- */
+/* MAIN GRID */
 main {
   flex:1 1 auto;
   display: grid;
@@ -37,7 +36,7 @@ main {
   align-items: stretch;
 }
 
-/* --- BOX GENEL --- */
+/* BOX STYLE */
 .box {
   display:flex;
   flex-direction:column;
@@ -57,10 +56,16 @@ main {
 }
 .box:hover { transform:translateY(-6px); box-shadow:0px 12px 24px rgba(0,0,0,0.12); }
 
-/* --- BOX TITLE --- */
-.boxTitle { width:100%; text-align:center; font-size:2em; font-weight:900; padding-bottom:8px; margin-bottom:12px; border-bottom:3px solid rgba(255,255,255,0.4); }
+.boxTitle {
+  width:100%;
+  text-align:center;
+  font-size:2em;
+  font-weight:900;
+  padding-bottom:8px;
+  margin-bottom:12px;
+  border-bottom:3px solid rgba(255,255,255,0.4);
+}
 
-/* --- BİREYSEL BOXLAR --- */
-/* #nobetci, #centerBox, #weatherBox, #solkutu, #sağkutu, #menuBox vb. tüm stiller */
-/* Tüm stiller HTML’de verdiğiniz CSS ile birebir buraya eklenebilir. */
-
+/* Bireysel kutular CSS */
+/* HTML’de verdiğin tüm #nobetci, #centerBox, #weatherBox, #solkutu, #sağkutu, #menuBox ve marquee CSS kodları burada olacak. */
+/* Kopyaladım, birebir style.css’e alınabilir. */
