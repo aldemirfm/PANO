@@ -145,7 +145,7 @@ main {
 #weatherBoxTitle { font-size: 2em; font-weight: 800; color: #ffffff; }
 #currentWeather { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 15px; width: 100%; }
 #currentWeather > div { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-#currentWeather img { width:200px; height:200px; }
+#currentWeather img { width:150px; height:150px; }
 .forecast { display:flex; justify-content:space-around; width:100%; }
 .forecast .day { display:flex; flex-direction:column; align-items:center; padding:10px; }
 .forecast .dayName { font-weight:700; font-size:2em; margin-bottom:5px; color:#ffffff; }
@@ -186,6 +186,7 @@ main {
 #marquee span { position: absolute; white-space: nowrap; animation: scrollText 12s linear infinite; }
 @keyframes scrollText { from { left: 100%; } to { left: -100%; } }
 #announcementText { transition: opacity 0.5s ease; display: inline-block; }
+
 
 
 
