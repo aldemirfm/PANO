@@ -4,40 +4,82 @@
 <meta charset="UTF-8">
 <title>Fatih Mehmet Aldemir Panosu</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-html, body { 
-  width:100%; 
-  height:100%;
+/* === GENEL STİLLER === */
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
 }
+
+html, body { 
+  width: 100%; 
+  height: 100%;
+}
+
 body {
-  display:flex;
-  flex-direction:column;
-  font-family:"Segoe UI",Arial,sans-serif;
-  background:#f3f6fa;
-  overflow:hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f3f6fa;
+  overflow: hidden;
   height: 100vh;
 }
 
-/* HEADER */
+/* === HEADER STİLLERİ === */
 header {
-  flex:0 0 10%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 20px;
-  background: linear-gradient(90deg,#2f26bf, #0D1A36);
-  box-shadow:0 2px 4px rgba(0,0,0,0.08);
+  flex: 0 0 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background: linear-gradient(90deg, #2f26bf, #0D1A36);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
-#headerLeft { flex:1; font-size:1.8em; font-weight:900; color:#fff; text-align:left; }
-#headerCenter { flex:0 0 auto; display:flex; justify-content:center; align-items:center; }
-#schoolLogo { max-height:500px; max-width:500px; object-fit:contain; }
-#headerRight { flex:1; display:flex; align-items:center; justify-content:flex-end; gap:10px; }
-#dayMonth { font-size:3em; font-weight:700; color:#FFFFFF; }
-#time { font-size:4em; font-weight:800; color:#FFFFFF; }
 
-/* MAIN GRID - 4x4 */
+#headerLeft { 
+  flex: 1; 
+  font-size: 1.8em; 
+  font-weight: 900; 
+  color: #fff; 
+  text-align: left; 
+}
+
+#headerCenter { 
+  flex: 0 0 auto; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+#schoolLogo { 
+  max-height: 500px; 
+  max-width: 500px; 
+  object-fit: contain; 
+}
+
+#headerRight { 
+  flex: 1; 
+  display: flex; 
+  align-items: center; 
+  justify-content: flex-end; 
+  gap: 10px; 
+}
+
+#dayMonth { 
+  font-size: 3em; 
+  font-weight: 700; 
+  color: #FFFFFF; 
+}
+
+#time { 
+  font-size: 4em; 
+  font-weight: 800; 
+  color: #FFFFFF; 
+}
+
+/* === ANA GRID YAPISI - 4x4 === */
 main {
-  flex:1 1 90%;
+  flex: 1 1 90%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
@@ -46,7 +88,7 @@ main {
   align-items: stretch;
 }
 
-/* BOX STYLE */
+/* === KUTU STİLLERİ === */
 .box {
   display: flex;
   flex-direction: column;
@@ -63,7 +105,11 @@ main {
   margin: 0;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.box:hover { transform:translateY(-4px); box-shadow:0px 8px 16px rgba(0,0,0,0.12); }
+
+.box:hover { 
+  transform: translateY(-4px); 
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.12); 
+}
 
 .boxTitle {
   width: 100%;
@@ -75,48 +121,50 @@ main {
   border-bottom: 2px solid rgba(255,255,255,0.4);
 }
 
-/* KUTU POZİSYONLARI - 4x4 GRID */
+/* === KUTU POZİSYONLARI - 4x4 GRID === */
 
 /* 1. SATIR */
 #nobetci {
   grid-column: 1;
   grid-row: 1 / 3;
-  background: linear-gradient(180deg,#000000,#202d58);
+  background: linear-gradient(180deg, #000000, #202d58);
 }
 
 /* WEB SİTESİ KUTUSU */
 #websiteBox {
   grid-column: 2 / 4;
   grid-row: 1 / 4;
-  background: linear-gradient(0deg, #4903C3, #16013B);
-  display: flex;
-  flex-direction: column;
-  padding: 0;
   border-radius: 15px;
   overflow: hidden;
-  position: relative; /* Ekledim */
+  position: relative;
+  padding: 0;
+}
+
+#iframeWrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
 #webFrame {
-  width: 100%; /* Tam genişlik */
-  height: 100%; /* Tam yükseklik */
+  width: 100%;
+  height: calc(100% + 300px);
+  position: relative;
+  top: -370px;
   border: none;
-  background: white;
-  /* Transform'ları kaldırdım - tam kaplasın */
-}
-
-/* Başlık stilleri */
-#websiteBox .boxTitle {
-  padding: 12px;
-  margin: 0;
-  border-bottom: 2px solid rgba(255,255,255,0.4);
+  display: block;
+  transform: scale(1.35);
+  image-rendering: -webkit-optimize-contrast; /* Netlik için */
+  image-rendering: crisp-edges; /* Kenar netliği */
+  filter: contrast(1.1) brightness(1.05); /* Kontrast ve parlaklık */
 }
 
 /* 2. SATIR */
 #examCountdown {
   grid-column: 1;
   grid-row: 3 / 5; 
-  background: linear-gradient(0deg, #ff0000,#000000);
+  background: linear-gradient(0deg, #ff0000, #000000);
 }
 
 #weatherBox {
@@ -137,56 +185,68 @@ main {
 #menuBox {
   grid-column: 4;
   grid-row: 3 / 5;
-  background: linear-gradient(180deg, #383838,#00f904);
+  background: linear-gradient(180deg, #000000, #1d6915);
 }
 
-/* İÇERİK STİLLERİ */
+/* === İÇERİK STİLLERİ === */
 
+/* NÖBETÇİ LİSTESİ */
 #nobetciList { 
   text-align: left; 
-  font-size: 0.9em; }
+  font-size: 0.9em; 
+}
 
 .nobetPlace { 
   color: #ffd63e;
   font-weight: 700;
   font-size: 1.8em;
-  display:inline-block;
-  width:120px;
+  display: inline-block;
+  width: 120px;
   vertical-align: top;
 }
+
 .nobetTeacher { 
   color: #ffffff;
   font-size: 1.8em;
-  display:inline-block;
+  display: inline-block;
 }
+
 .nobetRow { 
   margin-bottom: 5px; 
   border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
-/* EN ALTTAKİ ÇİZGİYİ KALDIR */
 .nobetRow:last-child {
   border-bottom: none;
 }
-#nobetci .boxTitle {
-  color: #ffd63e; /* Sarı - nöbet yerleriyle aynı renk */
-  font-size: 1.8em
+
+/* ORTAK BAŞLIK RENGİ */
+#nobetci .boxTitle,
+#weatherBox .boxTitle,
+#menuBox .boxTitle {
+  color: #ffd63e;
+  font-size: 1.8em;
 }
-.announcementText {
+
+/* DUYURU METİNLERİ */
+.announcementText,
+#box1Content {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   width: 100%;
   height: 100%;
-  font-size: 3em;
   font-weight: 700;
+  padding: 10px;
+  overflow: hidden;
 }
-#announcementBox1 .boxTitle {
-  color: #ffd63e; /* Sarı - nöbet yerleriyle aynı renk */
-  font-size: 1.8em
+
+.announcementText {
+  font-size: 3em;
 }
-/* HAVA DURUMU */
+
+/* === HAVA DURUMU STİLLERİ === */
 #currentWeather { 
   display: flex;
   flex-direction: row;
@@ -198,17 +258,11 @@ main {
   position: relative;
   z-index: 2;
 }
-#weatherBox .boxTitle {
-  color: #ffd63e; /* Sarı - nöbet yerleriyle aynı renk */
-  font-size: 1.8em;
-  position: relative;
-  z-index: 2;
-}
+
 #currentWeather img { 
-  width: 150px; 
-  height: 150px; 
-  margin-right: 30px; /* İkona sağ sol kaydırma */
-  /* ANİMASYONLARI EKLEYİN */
+  width: 200px; 
+  height: 200px; 
+  margin-right: 30px;
   animation: weatherIconMove 3s ease-in-out infinite,
              weatherIconGlow 3s ease-in-out infinite;
   filter: drop-shadow(0 0 10px rgba(0, 140, 255, 0.8));
@@ -216,109 +270,96 @@ main {
   z-index: 2;
 }
 
-/* Animasyon keyframes'leri */
-@keyframes weatherIconMove {
-  0%   { transform: translateY(0px); }
-  50%  { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-@keyframes weatherIconGlow {
-  0%   { filter: drop-shadow(0 0 6px rgba(0, 140, 255, .5)); }
-  50%  { filter: drop-shadow(0 0 22px rgba(0, 140, 255, .95)); }
-  100% { filter: drop-shadow(0 0 6px rgba(0, 140, 255, .5)); }
-}
-
+/* HAVA DURUMU NEON YAZI STİLLERİ */
 #temp {
-  font-size: 3em;
+  font-size: 4em;
   font-weight: 900;
   color: #ffffff;
   position: relative;
   z-index: 2;
+  text-shadow: 
+    0 0 10px #002bff,
+    0 0 20px #002bff,
+    0 0 30px #002bff;
+  animation: neonGlow 2s ease-in-out infinite alternate;
 }
 
 #desc {
-  font-size: 3em;
+  font-size: 2.5em;
   font-weight: 700;
   color: #ffffff;
   position: relative;
   z-index: 2;
+    text-shadow: 
+    0 0 10px #002bff,
+    0 0 20px #002bff,
+    0 0 30px #002bff;
+  animation: neonGlow 2s ease-in-out infinite alternate;
 }
 
 .forecast { 
-  display:flex; 
-  justify-content:space-around; 
-  width:100%;
+  display: flex; 
+  justify-content: space-around; 
+  width: 100%;
   height: 40%;
   font-size: 2em;
   position: relative;
   z-index: 2;
+    text-shadow: 
+    0 0 10px #002bff,
+    0 0 20px #002bff,
+    0 0 30px #002bff;
+  animation: neonGlow 2s ease-in-out infinite alternate;
 }
-.forecast .day { 
-display:flex; 
-flex-direction:column; 
-align-items:center; 
-padding:5px; }
 
-.forecast .dayName { font-weight:700; 
-font-size:1em; 
-margin-bottom:3px; 
-color:#ffffff; }
+.forecast .day { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  padding: 5px; 
+}
+
+.forecast .dayName { 
+  font-weight: 700; 
+  font-size: 1em; 
+  margin-bottom: 3px; 
+  color: #ffffff; 
+}
 
 .forecast .temp { 
-font-size:1.1em; 
-font-weight:700; 
-color:#ffffff; }
+  font-size: 1.1em; 
+  font-weight: 700; 
+  color: #ffffff; 
+}
 
-/* SINAV GERİ SAYIM */
+/* === SINAV GERİ SAYIM === */
 #examCountdown {
   display: flex; 
-  flex-direction: row;  /* Yatay düzen */
-  justify-content: space-between;  /* Sol ve sağa yasla */
+  flex-direction: row;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 10px; 
   height: 100%;
-  padding: 0 20px;  /* Yanlardan boşluk */
-}
-/* YKS ve LGS arasına dikey çizgi */
-.countdownItem:first-child {
-  border-right: 3px solid rgba(255,255,255,0.5); /* Dikey çizgi */
-  padding-right: 20px; /* Çizgi ile içerik arası boşluk */
+  padding: 0 20px;
 }
 
-.countdownItem:last-child {
-  padding-left: 20px; /* Çizgi ile içerik arası boşluk */
-}
-/* TÜM GERİ SAYIM SAYILARI YANIP SÖNSÜN */
-.countdownValue {
-  font-size: 1.8em;
-  font-weight: 900;
-  color: #00ff00;
-  animation: blink 1.5s infinite;
-  margin: 5px 0;
-}
-
-@keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
-}
 .countdownItem {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin: 0;
-  flex: 1;  /* Eşit genişlik */
+  height: 100%;
+  position: relative;
+  width: 200px;
 }
 
-/* YKS sola yaslı */
-#examCountdown .countdownItem:first-child {
-  align-items: flex;  /* Sola hizala */
+.countdownItem:first-child {
+  border-right: 3px solid rgba(255,255,255,0.5);
+  padding-right: 20px;
 }
 
-/* LGS sağa yaslı */
-#examCountdown .countdownItem:last-child {
-  align-items: flex;  /* Sağa hizala */
+.countdownItem:last-child {
+  padding-left: 20px;
 }
 
 .countdownTitle {
@@ -332,6 +373,8 @@ color:#ffffff; }
   font-size: 4em;
   font-weight: 900;
   color: #00ff00;
+  animation: blink 1.5s infinite;
+  margin: 2px 0;
 }
 
 .countdownLabel {
@@ -340,59 +383,49 @@ color:#ffffff; }
   color: white;
 }
 
-/* YEMEK LİSTESİ */
+/* === YEMEK LİSTESİ === */
 #menuList {
   text-align: center;
   width: 100%;
   height: 100%;
-  font-size: 2.1em;
-  padding: 10px;
-}
-#menuBox .boxTitle {
-  color: #ffd63e; /* Sarı - nöbet yerleriyle aynı renk */
-  font-size: 1.8em
-}
-.menu-row {
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.6) !important;
+  padding: 5px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-/* EN ALTTAKİ ÇİZGİYİ KALDIR */
+.menu-row {
+  width: 100%;
+  margin: 0;
+  padding: 2px 0;
+  color: #000000;
+  text-shadow: 
+  0 0 5px #00ff2e,
+  0 0 10px #00ff2e,
+  0 0 15px #00ff2e;
+  font-weight: 700;
+}
+
 .menu-row:last-child {
   border-bottom: none !important;
   margin-bottom: 0;
   padding-bottom: 0;
 }
 
-/* KÜÇÜK KUTULAR İÇİN */
-#box1Content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  font-size: 1.8em;
-  font-weight: 700;
-}
-
-/* GİZLİ BAŞLIKLAR */
-#solkutu .boxTitle {
-  display: none;
-}
-
-/* MARQUEE */
+/* === MARQUEE === */
 #marquee {
-  flex: 0 0 8%;
-  min-height: 60px;
+  flex: 0 0 auto;
+  min-height: 150px;
   background: #003366;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  font-size: 4em;
+  font-size: 5em;
   font-weight: 800;
   letter-spacing: 1px;
   position: relative;
@@ -402,7 +435,17 @@ color:#ffffff; }
 #marquee span {
   position: absolute;
   white-space: nowrap;
+  top: -10px;
   animation: scrollText 10s linear infinite;
+}
+
+/* === ANİMASYONLAR === */
+
+/* Genel Animasyonlar */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
 }
 
 @keyframes scrollText {
@@ -410,150 +453,203 @@ color:#ffffff; }
   to { left: -100%; }
 }
 
-/* HAVA DURUMU ANİMASYONLARI */
-#weatherAnimation {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
+@keyframes weatherIconMove {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
 
-/* YAĞMUR ANİMASYONU */
+@keyframes weatherIconGlow {
+  0%   { filter: drop-shadow(0 0 6px rgba(0, 140, 255, .5)); }
+  50%  { filter: drop-shadow(0 0 22px rgba(0, 140, 255, .95)); }
+  100% { filter: drop-shadow(0 0 6px rgba(0, 140, 255, .5)); }
+}
+
+/* Hava Durumu Animasyonları */
+#weatherAnimation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* === KAR ANİMASYONLARI === */
+.snow-flake {
+  position: absolute;
+  top: -50px;
+  background: transparent;
+  pointer-events: none;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+}
+
+/* Yoğun kar için */
+.snow-heavy-small { width: 20px; height: 20px; animation: snow-heavy 6s linear infinite; }
+.snow-heavy-medium { width: 30px; height: 30px; animation: snow-heavy 8s linear infinite; }
+.snow-heavy-large { width: 40px; height: 40px; animation: snow-heavy 12s linear infinite; }
+
+/* Hafif kar için */
+.snow-light-small { width: 25px; height: 25px; animation: snow-light 15s linear infinite; }
+.snow-light-medium { width: 35px; height: 35px; animation: snow-light 20s linear infinite; }
+.snow-light-large { width: 45px; height: 45px; animation: snow-light 25s linear infinite; }
+
+/* Yoğun kar animasyonu */
+@keyframes snow-heavy {
+  0% {
+    transform: translateY(-50px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  5% { opacity: 0.9; }
+  95% { opacity: 0.9; }
+  100% {
+    transform: translateY(100vh) translateX(80px) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+/* Hafif kar animasyonu */
+@keyframes snow-light {
+  0% {
+    transform: translateY(-50px) translateX(-30px) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% {
+    transform: translateY(100vh) translateX(30px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Yağmur */
 .rain-drop {
-    position: absolute;
-    top: -20px;
-    width: 2px;
-    height: 15px;
-    background: linear-gradient(to bottom, transparent, #87CEEB);
-    animation: rain-fall linear infinite;
-    border-radius: 50%;
+  position: absolute;
+  top: -20px;
+  background: linear-gradient(to bottom, transparent, #87CEEB);
+  animation: rain-fall linear infinite;
+  border-radius: 50%;
 }
 
 @keyframes rain-fall {
-    0% {
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
 }
 
-/* KAR ANİMASYONU */
-.snow-flake {
-    position: absolute;
-    top: -10px;
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
-    animation: snow-fall linear infinite;
-    filter: blur(0.5px);
-}
-
-@keyframes snow-fall {
-    0% {
-        transform: translateY(-10px) translateX(0);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) translateX(20px);
-        opacity: 0;
-    }
-}
-
-/* GÜNEŞLİ ANİMASYONU */
+/* Güneş */
 .sun-animation {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background: radial-gradient(circle, #FFD700, #FFA500);
-    border-radius: 50%;
-    animation: sun-pulse 3s ease-in-out infinite;
-    box-shadow: 0 0 20px #FFD700, 0 0 40px #FFA500;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, #FFD700, #FFA500);
+  border-radius: 50%;
+  animation: sun-pulse 3s ease-in-out infinite;
+  box-shadow: 0 0 20px #FFD700, 0 0 40px #FFA500;
 }
 
 @keyframes sun-pulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-    50% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
 }
 
-/* BULUTLU ANİMASYONU */
-.cloud {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    animation: cloud-move linear infinite;
-}
-
-.cloud::before, .cloud::after {
-    content: '';
-    position: absolute;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
+/* Bulut */
+.cloud-img {
+  position: absolute;
+  width: 100px;
+  height: auto;
+  opacity: 0.8;
+  animation: cloud-move linear infinite;
 }
 
 @keyframes cloud-move {
-    0% {
-        transform: translateX(-100px);
-    }
-    100% {
-        transform: translateX(calc(100vw + 100px));
-    }
+  0% { transform: translateX(-150px); }
+  100% { transform: translateX(110vw); }
 }
 
-/* SİSLİ ANİMASYONU */
+/* Sis */
 .fog {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent
-    );
-    animation: fog-move 10s linear infinite;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: fog-move 10s linear infinite;
 }
 
 @keyframes fog-move {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(100%);
-    }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
+/* === RESPONSIVE TASARIM === */
+@media (max-width: 768px) and (orientation: landscape) {
+  main {
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+    grid-template-rows: auto;
+    gap: 10px;
+  }
+  
+  #websiteBox, #weatherBox, #solkutu, #menuBox, #examCountdown, #nobetci {
+    width: 220px;
+  }
+}
+
+@media (max-width: 1024px) and (orientation: landscape) {
+  body {
+    overflow-x: hidden;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-auto-rows: minmax(120px, auto);
+    gap: 10px;
+    width: 100%;
+  }
+
+  #websiteBox, #weatherBox, #solkutu, #menuBox, #examCountdown, #nobetci {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* GİZLİ BAŞLIKLAR */
+#solkutu .boxTitle {
+  display: none;
+}
 </style>
 </head>
 <body>
-
 <header>
   <div id="headerLeft">FATİH MEHMET ALDEMİR<br>PANOSU</div>
   <div id="headerCenter"><img src="okul_logo.png" alt="Okul Logosu" id="schoolLogo"></div>
@@ -570,9 +666,12 @@ color:#ffffff; }
     <div id="nobetciList">Yükleniyor...</div>
   </div>
 
-<div class="box" id="websiteBox">
-  <iframe id="webFrame" src="https://develiihl.meb.k12.tr/" frameborder="0"></iframe>
-</div>
+  <!-- WEB SİTESİ KUTUSU -->
+  <div class="box" id="websiteBox">
+    <div id="iframeWrapper">
+      <iframe id="webFrame" src="https://develiihl.meb.k12.tr/"></iframe>
+    </div>
+  </div>
 
   <!-- 2. SATIR -->
   <div class="box" id="examCountdown">
@@ -618,15 +717,46 @@ color:#ffffff; }
     <div class="boxTitle">YEMEK LİSTESİ</div>
     <div id="menuList">Yükleniyor...</div>
   </div>
-
-
 </main>
 
 <!-- Marquee -->
 <div id="marquee"><span>HOŞ GELDİNİZ</span></div>
 
 <script>
-// TAM EKRAN
+// === METİN SIKIŞTIRMA FONKSİYONLARI ===
+function fitTextToBox() {
+  const container = document.getElementById("box1Content");
+  const maxHeight = container.clientHeight;
+  const maxWidth = container.clientWidth;
+
+  let fontSize = 10;
+  container.style.fontSize = fontSize + "px";
+
+  while(container.scrollHeight <= maxHeight && container.scrollWidth <= maxWidth && fontSize < 200) {
+    fontSize += 1;
+    container.style.fontSize = fontSize + "px";
+  }
+
+  container.style.fontSize = (fontSize - 1) + "px";
+}
+
+function fitMenuText() {
+  const container = document.getElementById("menuList");
+  const maxHeight = container.clientHeight;
+  const maxWidth = container.clientWidth;
+
+  let fontSize = 10;
+  container.style.fontSize = fontSize + "px";
+
+  while(container.scrollHeight <= maxHeight && container.scrollWidth <= maxWidth && fontSize < 200) {
+    fontSize += 1;
+    container.style.fontSize = fontSize + "px";
+  }
+
+  container.style.fontSize = (fontSize - 1) + "px";
+}
+
+// === TAM EKRAN ===
 function enableFullScreen() {
   const elem = document.documentElement;
   if (elem.requestFullscreen) elem.requestFullscreen();
@@ -635,7 +765,7 @@ function enableFullScreen() {
 }
 window.addEventListener("click", enableFullScreen);
 
-// ------------------ Tarih & Saat ------------------
+// === TARİH & SAAT ===
 function updateDateTime() {
   const now = new Date();
   const days = ["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"];
@@ -653,148 +783,220 @@ function updateDateTime() {
 setInterval(updateDateTime, 1000);
 updateDateTime();
 
-// ------------------ YKS & LGS ------------------
+// === SINAV GERİ SAYIM ===
 function countdown(target, numEl, hourEl) {
   const now = new Date();
   const diff = target - now;
-  const days = Math.floor(diff / (1000*60*60*24));
-  const hours = Math.floor((diff / (1000*60*60)) % 24);
+  
+  if (diff <= 0) {
+    document.getElementById(numEl).innerText = "0";
+    document.getElementById(hourEl).innerText = "0";
+    return;
+  }
+  
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  
   document.getElementById(numEl).innerText = days;
   document.getElementById(hourEl).innerText = hours;
 }
+
+// DOMContentLoaded içinde kullanın:
 setInterval(()=>{
-  countdown(new Date("2026-06-20"), "yksCountdownNum","yksCountdownHour");
-  countdown(new Date("2026-06-01"), "lgsCountdownNum","lgsCountdownHour");
+  // YKS: 20 Haziran 2026 saat 10:30
+  countdown(new Date("2026-06-20T10:30:00"), "yksCountdownNum","yksCountdownHour");
+  // LGS: 14 Haziran 2026 saat 09:30
+  countdown(new Date("2026-06-14T09:30:00"), "lgsCountdownNum","lgsCountdownHour");
 }, 1000);
-
-// ------------------ HAVA DURUMU ANİMASYON SİSTEMİ ------------------
+// === HAVA DURUMU ANİMASYON SİSTEMİ ===
 class WeatherAnimation {
-    constructor() {
-        this.container = document.getElementById('weatherAnimation');
-        this.currentWeather = '';
-    }
+  constructor() {
+    this.container = document.getElementById('weatherAnimation');
+    this.currentWeather = '';
+  }
 
-    // Hava durumunu ayarla ve animasyonu başlat
-    setWeather(weatherType) {
-        this.clearAnimation();
-        this.currentWeather = weatherType.toLowerCase();
+  setWeather(weatherType) {
+    this.clearAnimation();
+    this.currentWeather = weatherType.toLowerCase();
+    
+    switch(this.currentWeather) {
+      case 'rain':
+      case 'heavy rain':
+        this.createHeavyRain();
+        break;
+      case 'light rain':
+      case 'drizzle':
+        this.createLightRain();
+        break;
+      case 'snow':
+        this.createHeavySnow();
+        break;
+      case 'light snow':
+        this.createLightSnow();
+        break;
+      case 'clear':
+        this.createSunny();
+        break;
+      case 'few clouds':
+        this.createFewClouds();
+        break;
+      case 'scattered clouds':
+      case 'cloudy':
+        this.createCloudy();
+        break;
+      case 'fog':
+      case 'mist':
+      case 'haze':
+        this.createFog();
+        break;
+      case 'thunderstorm':
+        this.createThunderstorm();
+        break;
+      default:
+        this.createCloudy();
+    }
+  }
+
+  // YOĞUN YAĞMUR
+  createHeavyRain() {
+    for (let i = 0; i < 150; i++) {
+      const drop = document.createElement('div');
+      drop.className = 'rain-drop';
+      drop.style.left = `${Math.random() * 100}%`;
+      drop.style.animationDuration = `${0.3 + Math.random() * 0.5}s`;
+      drop.style.animationDelay = `${Math.random() * 1}s`;
+      drop.style.width = '3px';
+      drop.style.height = '25px';
+      this.container.appendChild(drop);
+    }
+  }
+
+  // HAFİF YAĞMUR
+  createLightRain() {
+    for (let i = 0; i < 50; i++) {
+      const drop = document.createElement('div');
+      drop.className = 'rain-drop';
+      drop.style.left = `${Math.random() * 100}%`;
+      drop.style.animationDuration = `${1 + Math.random() * 2}s`;
+      drop.style.animationDelay = `${Math.random() * 3}s`;
+      drop.style.width = '2px';
+      drop.style.height = '15px';
+      drop.style.opacity = '0.6';
+      this.container.appendChild(drop);
+    }
+  }
+
+  // YOĞUN KAR YAĞIŞI
+  createHeavySnow() {
+    const heavySnowTypes = [
+      { class: 'snow-heavy-small', count: 25 },
+      { class: 'snow-heavy-medium', count: 20 },
+      { class: 'snow-heavy-large', count: 15 }
+    ];
+
+    heavySnowTypes.forEach(type => {
+      for (let i = 0; i < type.count; i++) {
+        const snow = document.createElement('img');
+        snow.className = `snow-flake ${type.class}`;
+        snow.src = 'icons/weather/AnimasyonKAR.png';
+        snow.alt = 'Kar tanesi';
         
-        switch(this.currentWeather) {
-            case 'rain':
-            case 'rainy':
-            case 'showers':
-            case 'drizzle':
-                this.createRain();
-                break;
-            case 'snow':
-            case 'snowy':
-                this.createSnow();
-                break;
-            case 'clear':
-            case 'sunny':
-                this.createSunny();
-                break;
-            case 'clouds':
-            case 'cloudy':
-                this.createCloudy();
-                break;
-            case 'fog':
-            case 'mist':
-            case 'haze':
-                this.createFog();
-                break;
-            case 'thunderstorm':
-                this.createThunderstorm();
-                break;
-            default:
-                this.createCloudy(); // Varsayılan
-        }
-    }
-
-    // Yağmur animasyonu
-    createRain() {
-        for (let i = 0; i < 100; i++) {
-            const drop = document.createElement('div');
-            drop.className = 'rain-drop';
-            drop.style.left = `${Math.random() * 100}%`;
-            drop.style.animationDuration = `${0.5 + Math.random() * 0.5}s`;
-            drop.style.animationDelay = `${Math.random() * 2}s`;
-            this.container.appendChild(drop);
-			drop.style.width = '2px';
-            drop.style.height = '30px';
-        }
-    }
-
-    // Kar animasyonu
-    createSnow() {
-        for (let i = 0; i < 30; i++) {
-            const snow = document.createElement('div');
-            snow.className = 'snow-flake';
-            snow.style.left = `${Math.random() * 100}%`;
-            snow.style.animationDuration = `${3 + Math.random() * 5}s`;
-            snow.style.animationDelay = `${Math.random() * 5}s`;
-            snow.style.width = `${3 + Math.random() * 4}px`;
-            snow.style.height = snow.style.width;
-            this.container.appendChild(snow);
-        }
-    }
-
-    // Güneşli animasyon
-    createSunny() {
-        const sun = document.createElement('div');
-        sun.className = 'sun-animation';
-        this.container.appendChild(sun);
-    }
-
-    // Bulutlu animasyon
-    createCloudy() {
-        for (let i = 0; i < 3; i++) {
-            const cloud = document.createElement('div');
-            cloud.className = 'cloud';
-            cloud.style.top = `${20 + Math.random() * 50}%`;
-            cloud.style.width = `${40 + Math.random() * 30}px`;
-            cloud.style.height = `${20 + Math.random() * 15}px`;
-            cloud.style.animationDuration = `${20 + Math.random() * 20}s`;
-            cloud.style.animationDelay = `${Math.random() * 10}s`;
-            cloud.style.opacity = '0.7';
-            
-            this.container.appendChild(cloud);
-        }
-    }
-
-    // Sis animasyonu
-    createFog() {
-        const fog = document.createElement('div');
-        fog.className = 'fog';
-        this.container.appendChild(fog);
-    }
-
-    // Fırtına animasyonu (yağmur + şimşek efekti)
-    createThunderstorm() {
-        this.createRain();
+        snow.style.left = `${Math.random() * 100}%`;
+        snow.style.animationDuration = `${4 + Math.random() * 4}s`;
+        snow.style.animationDelay = `${Math.random() * 2}s`;
         
-        // Şimşek efekti
-        setInterval(() => {
-            if (Math.random() > 0.7) {
-                this.container.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
-                setTimeout(() => {
-                    this.container.style.backgroundColor = 'transparent';
-                }, 100);
-            }
-        }, 2000);
-    }
+        this.container.appendChild(snow);
+      }
+    });
+  }
 
-    // Animasyonu temizle
-    clearAnimation() {
-        this.container.innerHTML = '';
-        this.container.style.backgroundColor = 'transparent';
+  // HAFİF KAR YAĞIŞI
+  createLightSnow() {
+    const lightSnowTypes = [
+      { class: 'snow-light-small', count: 8 },
+      { class: 'snow-light-medium', count: 6 },
+      { class: 'snow-light-large', count: 4 }
+    ];
+
+    lightSnowTypes.forEach(type => {
+      for (let i = 0; i < type.count; i++) {
+        const snow = document.createElement('img');
+        snow.className = `snow-flake ${type.class}`;
+        snow.src = 'icons/weather/AnimasyonKAR.png';
+        snow.alt = 'Kar tanesi';
+        
+        snow.style.left = `${Math.random() * 100}%`;
+        snow.style.animationDuration = `${12 + Math.random() * 10}s`;
+        snow.style.animationDelay = `${Math.random() * 5}s`;
+        
+        this.container.appendChild(snow);
+      }
+    });
+  }
+
+  createSunny() {
+    const sun = document.createElement('div');
+    sun.className = 'sun-animation';
+    this.container.appendChild(sun);
+  }
+
+  // AZ BULUTLU
+  createFewClouds() {
+    for (let i = 0; i < 2; i++) {
+      const cloud = document.createElement('img');
+      cloud.src = 'icons/weather/bulutanimasyon.png';
+      cloud.className = 'cloud-img';
+      cloud.style.top = `${30 + Math.random() * 30}%`;
+      cloud.style.width = `${80 + Math.random() * 40}px`;
+      cloud.style.animationDuration = `${60 + Math.random() * 40}s`;
+      cloud.style.animationDelay = `${Math.random() * 10}s`;
+      cloud.style.opacity = '0.4';
+      this.container.appendChild(cloud);
     }
+    this.createSunny();
+  }
+
+  // ÇOK BULUTLU
+  createCloudy() {
+    for (let i = 0; i < 5; i++) {
+      const cloud = document.createElement('img');
+      cloud.src = 'icons/weather/bulutanimasyon.png';
+      cloud.className = 'cloud-img';
+      cloud.style.top = `${20 + Math.random() * 50}%`;
+      cloud.style.width = `${150 + Math.random() * 100}px`;
+      cloud.style.animationDuration = `${40 + Math.random() * 30}s`;
+      cloud.style.animationDelay = `${Math.random() * 10}s`;
+      this.container.appendChild(cloud);
+    }
+  }
+
+  createFog() {
+    const fog = document.createElement('div');
+    fog.className = 'fog';
+    this.container.appendChild(fog);
+  }
+
+  createThunderstorm() {
+    this.createHeavyRain();
+    setInterval(() => {
+      if (Math.random() > 0.7) {
+        this.container.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+        setTimeout(() => {
+          this.container.style.backgroundColor = 'transparent';
+        }, 100);
+      }
+    }, 2000);
+  }
+
+  clearAnimation() {
+    this.container.innerHTML = '';
+    this.container.style.backgroundColor = 'transparent';
+  }
 }
 
-// Hava durumu animasyon sistemini başlat
 const weatherAnim = new WeatherAnimation();
 
-// ------------------ HAVA DURUMU VERİSİ ------------------
+// === DETAYLI HAVA DURUMU VERİSİ ===
 async function loadWeather() {
   const apiKey = "c5155ad22a417a8b1068985b43425bb3";
   const city = "Develi,TR";
@@ -803,41 +1005,110 @@ async function loadWeather() {
     const currentRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=tr`);
     const currentData = await currentRes.json();
     
-    document.getElementById("temp").innerText = Math.round(currentData.main.temp) + "°C";
-    document.getElementById("desc").innerText = currentData.weather[0].description.toUpperCase();
-    
+    const temp = Math.round(currentData.main.temp);
+    const weatherMain = currentData.weather[0].main;
+    const weatherDesc = currentData.weather[0].description.toLowerCase();
+    const clouds = currentData.clouds.all;
+
+    // Detaylı hava durumu tespiti
+    let displayDesc = "";
+    let weatherType = "";
+
+    // YAĞMUR DURUMLARI
+    if (weatherMain === "Rain") {
+      if (weatherDesc.includes("hafif") || weatherDesc.includes("light") || weatherDesc.includes("çisenti")) {
+        displayDesc = "HAFİF YAĞMUR";
+        weatherType = "light rain";
+      } else if (weatherDesc.includes("şiddetli") || weatherDesc.includes("heavy")) {
+        displayDesc = "YOĞUN YAĞMUR";
+        weatherType = "heavy rain";
+      } else {
+        displayDesc = "YAĞMURLU";
+        weatherType = "rain";
+      }
+    }
+    // KAR DURUMLARI
+    else if (weatherMain === "Snow") {
+      if (weatherDesc.includes("hafif") || weatherDesc.includes("light")) {
+        displayDesc = "HAFİF KAR";
+        weatherType = "light snow";
+      } else {
+        displayDesc = "YOĞUN KAR";
+        weatherType = "snow";
+      }
+    }
+    // BULUT DURUMLARI
+    else if (weatherMain === "Clouds") {
+      if (clouds < 50) {
+        displayDesc = "AZ BULUTLU";
+        weatherType = "few clouds";
+      } else if (clouds < 85) {
+        displayDesc = "PARÇALI BULUTLU";
+        weatherType = "scattered clouds";
+      } else {
+        displayDesc = "ÇOK BULUTLU";
+        weatherType = "cloudy";
+      }
+    }
+    // DİĞER DURUMLAR
+    else if (weatherMain === "Clear") {
+      displayDesc = "AÇIK";
+      weatherType = "clear";
+    }
+    else if (weatherMain === "Thunderstorm") {
+      displayDesc = "GÖKGÜRÜLTÜLÜ";
+      weatherType = "thunderstorm";
+    }
+    else if (weatherMain === "Drizzle") {
+      displayDesc = "ÇİSENTİ";
+      weatherType = "drizzle";
+    }
+    else if (weatherMain === "Mist" || weatherMain === "Fog" || weatherMain === "Haze") {
+      displayDesc = "SİSLİ";
+      weatherType = "fog";
+    }
+    else {
+      displayDesc = currentData.weather[0].description.toUpperCase();
+      weatherType = weatherMain.toLowerCase();
+    }
+
+    // Bilgileri göster
+    document.getElementById("temp").innerText = temp + "°C";
+    document.getElementById("desc").innerText = displayDesc;
+
+    // İkonu ayarla
     const iconMap = {
-      Clear: "sunny.png",
-      Clouds: "cloudy.png",
-      Rain: "rainy.png",
-      Snow: "snowy.png",
-      Drizzle: "drizzle.png",
-      Thunderstorm: "thunderstorm.png"
+      'clear': 'sunny.png',
+      'few clouds': 'cloudy.png',
+      'scattered clouds': 'cloudy.png',
+      'cloudy': 'cloudy.png',
+      'rain': 'rainy.png',
+      'light rain': 'rainy.png',
+      'heavy rain': 'rainy.png',
+      'snow': 'snowy.png',
+      'light snow': 'snowy.png',
+      'thunderstorm': 'thunderstorm.png',
+      'drizzle': 'rainy.png',
+      'fog': 'cloudy.png'
     };
 
-    const weatherMain = currentData.weather[0].main;
-    const iconFile = iconMap[weatherMain] || "sunny.png";
-    document.getElementById("weatherIcon").src = "icons/weather/" + iconFile;
+    document.getElementById("weatherIcon").src = "icons/weather/" + (iconMap[weatherType] || "cloudy.png");
 
-    // Hava durumuna göre animasyonu başlat
-    weatherAnim.setWeather(weatherMain);
+    // Animasyonu başlat
+    weatherAnim.setWeather(weatherType);
 
-  } catch {
-    document.getElementById("temp").innerText = "--";
-    document.getElementById("desc").innerText = "❌ Veri alınamadı";
-    weatherAnim.setWeather('cloudy'); // Varsayılan animasyon
-  }
-
-  try {
+    // 3 GÜNLÜK TAHMİN
     const forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=tr`);
     const forecastData = await forecastRes.json();
-    const daysMap = ["Paz","Pzt","Sal","Çar","Per","Cum","Cts"];
+    
+    const daysMap = ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cts"];
     const dailyForecast = [];
     const addedDates = new Set();
 
     for (let item of forecastData.list) {
       const date = new Date(item.dt_txt);
-      const dateKey = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+      const dateKey = date.toDateString();
+      
       if (!addedDates.has(dateKey)) {
         addedDates.add(dateKey);
         dailyForecast.push({
@@ -856,8 +1127,11 @@ async function loadWeather() {
       </div>
     `).join("");
 
-  } catch {
-    document.querySelector("#weatherBox .forecast").innerHTML = "<div style='color:red'>❌ Veri alınamadı</div>";
+  } catch (error) {
+    console.error("Hava durumu hatası:", error);
+    document.getElementById("temp").innerText = "--";
+    document.getElementById("desc").innerText = "❌ Veri alınamadı";
+    weatherAnim.setWeather('cloudy');
   }
 }
 
@@ -872,7 +1146,7 @@ function updateWeatherHourly() {
 loadWeather();
 updateWeatherHourly();
 
-// ------------------ NÖBETÇİ ÖĞRETMEN ------------------
+// === NÖBETÇİ ÖĞRETMEN ===
 const sheetURL = "https://docs.google.com/spreadsheets/d/1oF2cT3UkMBW4c2PgVIsncCYfHV1dJeoB_fS68c8pU1c/gviz/tq?tqx=out:json&gid=0";
 
 function loadDutyTeachers() {
@@ -924,137 +1198,142 @@ function loadDutyTeachers() {
 loadDutyTeachers();
 setInterval(loadDutyTeachers, 30000);
 
-
-// ------------------ YEMEK LİSTESİ ------------------
+// === YEMEK LİSTESİ ===
 const menuSheetURL="https://docs.google.com/spreadsheets/d/1ps4RgDTOscAE8FVLU0mWl9hJpnK2XEMlHa8C7c7e9pw/gviz/tq?tqx=out:json&gid=0";
 
 function loadMenu(){
-    const menuListElement = document.getElementById("menuList");
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1).toString().padStart(2, "0");
-    const day = now.getDate().toString().padStart(2, "0");
-    
-    const todayDateString = `${day}.${month}.${year}`;
+  const menuListElement = document.getElementById("menuList");
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = (now.getMonth() + 1).toString().padStart(2, "0");
+  const day = now.getDate().toString().padStart(2, "0");
+  
+  const todayDateString = `${day}.${month}.${year}`;
 
-    fetch(menuSheetURL)
-        .then(res => res.text())
-        .then(text => {
-            const jsonText = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
-            const json = JSON.parse(jsonText);
-            const rows = json.table.rows;
-            
-            let output = "Bu güne ait yemek listesi yok.";
-            let found = false;
+  fetch(menuSheetURL)
+    .then(res => res.text())
+    .then(text => {
+      const jsonText = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
+      const json = JSON.parse(jsonText);
+      const rows = json.table.rows;
+      
+      let output = "Bu güne ait yemek listesi yok.";
+      let found = false;
 
-            for (let i = 0; i < rows.length; i++) {
-                const row = rows[i].c;
-                const sheetDateCell = row[0]?.f || row[0]?.v;
-                
-                if (!sheetDateCell) continue;
-                
-                let sheetDateString = null;
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i].c;
+        const sheetDateCell = row[0]?.f || row[0]?.v;
+        
+        if (!sheetDateCell) continue;
+        
+        let sheetDateString = null;
 
-                if (typeof sheetDateCell === 'string' && sheetDateCell.startsWith('Date(')) {
-                    const parts = sheetDateCell.match(/\d+/g);
-                    if (parts && parts.length >= 3) {
-                        const sheetYear = parts[0];
-                        const sheetMonth = (parseInt(parts[1]) + 1).toString().padStart(2, "0");
-                        const sheetDay = parts[2].toString().padStart(2, "0");
-                        sheetDateString = `${sheetDay}.${sheetMonth}.${sheetYear}`;
-                    }
-                } else if (typeof sheetDateCell === 'string') {
-                    sheetDateString = sheetDateCell.trim();
-                }
+        if (typeof sheetDateCell === 'string' && sheetDateCell.startsWith('Date(')) {
+          const parts = sheetDateCell.match(/\d+/g);
+          if (parts && parts.length >= 3) {
+            const sheetYear = parts[0];
+            const sheetMonth = (parseInt(parts[1]) + 1).toString().padStart(2, "0");
+            const sheetDay = parts[2].toString().padStart(2, "0");
+            sheetDateString = `${sheetDay}.${sheetMonth}.${sheetYear}`;
+          }
+        } else if (typeof sheetDateCell === 'string') {
+          sheetDateString = sheetDateCell.trim();
+        }
 
-                if (sheetDateString === todayDateString) {
-                    output = row[1]?.v || "Yemek listesi boş.";
-                    found = true;
-                    break;
-                }
-            }
-            
-            // YEMEK LİSTESİNİ FORMATLA - AYIRICI ÇİZGİ İLE
-            if (found && output !== "Yemek listesi boş.") {
-                const foods = output.split("\n").filter(food => food.trim() !== "");
-                let formattedOutput = '';
-                
-                foods.forEach((food, index) => {
-                    const isLast = index === foods.length - 1;
-                    formattedOutput += `<div class="menu-row">${food}</div>`;
-                });
-                
-                menuListElement.innerHTML = formattedOutput;
-            } else {
-                menuListElement.innerHTML = `<div class="menu-row">${output}</div>`;
-            }
-        })
-        .catch(err => {
-            console.error("Yemek Listesi Hatası:", err);
-            menuListElement.innerHTML = '<div class="menu-row" style="border-bottom: 3px solid red;">❌ Yemek listesi alınamadı</div>';
+        if (sheetDateString === todayDateString) {
+          output = row[1]?.v || "Yemek listesi boş.";
+          found = true;
+          break;
+        }
+      }
+      
+      if (found && output !== "Yemek listesi boş.") {
+        const foods = output.split("\n").filter(food => food.trim() !== "");
+        let formattedOutput = '';
+        
+        foods.forEach((food, index) => {
+          const isLast = index === foods.length - 1;
+          formattedOutput += `<div class="menu-row">${food}</div>`;
         });
+        
+        menuListElement.innerHTML = formattedOutput;
+        fitMenuText(); 
+      } else {
+        menuListElement.innerHTML = `<div class="menu-row">${output}</div>`;
+        fitMenuText();
+      }
+    })
+    .catch(err => {
+      console.error("Yemek Listesi Hatası:", err);
+      menuListElement.innerHTML = '<div class="menu-row" style="border-bottom: 3px solid red;">❌ Yemek listesi alınamadı</div>';
+    });
 }
 
 loadMenu();
 setInterval(loadMenu, 3600000);
 
-// ------------------ GÜNLÜK SÖZLER ------------------
+// === GÜNLÜK SÖZLER ===
 const quoteSheetURL = "https://docs.google.com/spreadsheets/d/1p4pq-wpK-oFzufueyKOTmYi_Ic2iVcVTyyhXbfpzBhE/gviz/tq?tqx=out:json&gid=0"; 
 
 function loadDailyQuote() {
-    const solKutuElement = document.getElementById("box1Content");
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1).toString().padStart(2, "0");
-    const day = now.getDate().toString().padStart(2, "0");
-    
-    const todayDateString = `${day}.${month}.${year}`;
+  const solKutuElement = document.getElementById("box1Content");
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = (now.getMonth() + 1).toString().padStart(2, "0");
+  const day = now.getDate().toString().padStart(2, "0");
+  
+  const todayDateString = `${day}.${month}.${year}`;
 
-    fetch(quoteSheetURL)
-        .then(res => res.text())
-        .then(text => {
-            const jsonText = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
-            const json = JSON.parse(jsonText);
-            const rows = json.table.rows;
-            
-            let quote = "Bu güne ait ilham verici söz yok.";
+  fetch(quoteSheetURL)
+    .then(res => res.text())
+    .then(text => {
+      const jsonText = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
+      const json = JSON.parse(jsonText);
+      const rows = json.table.rows;
+      
+      let quote = "Bu güne ait ilham verici söz yok.";
 
-            for (let i = 0; i < rows.length; i++) {
-                const row = rows[i].c;
-                const sheetDateCell = row[0]?.f || row[0]?.v;
-                
-                if (!sheetDateCell) continue;
-                
-                let sheetDateString = null;
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i].c;
+        const sheetDateCell = row[0]?.f || row[0]?.v;
+        
+        if (!sheetDateCell) continue;
+        
+        let sheetDateString = null;
 
-                if (typeof sheetDateCell === 'string' && sheetDateCell.startsWith('Date(')) {
-                    const parts = sheetDateCell.match(/\d+/g);
-                    if (parts && parts.length >= 3) {
-                        const sheetYear = parts[0];
-                        const sheetMonth = (parseInt(parts[1]) + 1).toString().padStart(2, "0");
-                        const sheetDay = parts[2].toString().padStart(2, "0");
-                        sheetDateString = `${sheetDay}.${sheetMonth}.${sheetYear}`;
-                    }
-                } else if (typeof sheetDateCell === 'string') {
-                    sheetDateString = sheetDateCell.trim();
-                }
+        if (typeof sheetDateCell === 'string' && sheetDateCell.startsWith('Date(')) {
+          const parts = sheetDateCell.match(/\d+/g);
+          if (parts && parts.length >= 3) {
+            const sheetYear = parts[0];
+            const sheetMonth = (parseInt(parts[1]) + 1).toString().padStart(2, "0");
+            const sheetDay = parts[2].toString().padStart(2, "0");
+            sheetDateString = `${sheetDay}.${sheetMonth}.${sheetYear}`;
+          }
+        } else if (typeof sheetDateCell === 'string') {
+          sheetDateString = sheetDateCell.trim();
+        }
 
-                if (sheetDateString === todayDateString) {
-                    quote = row[1]?.v || "Söz listesi boş.";
-                    break;
-                }
-            }
-            
-            solKutuElement.innerHTML = quote.split("\n").join("<br>");
-        })
-        .catch(err => {
-            console.error("Günlük Söz Hatası:", err);
-            solKutuElement.innerHTML = "❌ Günlük söz alınamadı";
-        });
+        if (sheetDateString === todayDateString) {
+          quote = row[1]?.v || "Söz listesi boş.";
+          break;
+        }
+      }
+      
+      solKutuElement.innerHTML = quote.split("\n").join("<br>");
+      fitTextToBox();
+    })
+    .catch(err => {
+      console.error("Günlük Söz Hatası:", err);
+      solKutuElement.innerHTML = "❌ Günlük söz alınamadı";
+    });
 }
 
 loadDailyQuote();
+setInterval(loadDailyQuote, 3600000);
 
+// === EVENT LISTENERS ===
+window.addEventListener("resize", fitTextToBox);
+window.addEventListener("resize", fitMenuText);
 </script>
 </body>
 </html>
