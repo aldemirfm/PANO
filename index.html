@@ -1162,7 +1162,7 @@ function loadDutyTeachers() {
       const headers = rows[0].c.map(h => h?.v?.toString().toUpperCase() || "");
       const colIndex = headers.indexOf(today);
       if(colIndex === -1) {
-        document.getElementById("nobetciList").innerHTML = "🥸 hafta sonu";
+        document.getElementById("nobetciList").innerHTML = '<span style="font-size:10em;">🥸</span>';
         return;
       }
 
