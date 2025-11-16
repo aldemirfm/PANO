@@ -444,7 +444,7 @@ main {
   position: absolute;
   white-space: nowrap;
   top: -10px;
-  animation: scrollText 5s linear infinite;
+  animation: scrollText 10s linear infinite;
 }
 
 /* === ANİMASYONLAR === */
@@ -457,8 +457,8 @@ main {
 }
 
 @keyframes scrollText {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+  from { left: 100%; }
+  to { left: -100%; }
 }
 
 @keyframes weatherIconMove {
