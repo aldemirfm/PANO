@@ -151,7 +151,7 @@ main {
   width: 100%;
   height: calc(100% + 300px);
   position: relative;
-  top: -370px;
+  top: -360px;
   border: none;
   display: block;
   transform: scale(1.35);
@@ -176,10 +176,18 @@ main {
 }
 
 /* 3. SATIR */
-#solkutu {
+#islam {
   grid-column: 2 / 4;
   grid-row: 4;
-  background: linear-gradient(180deg, #338e06, #6eeba5);
+  background: linear-gradient(0deg, #ffffff, #fffcd4);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 #menuBox {
@@ -436,7 +444,7 @@ main {
   position: absolute;
   white-space: nowrap;
   top: -10px;
-  animation: scrollText 10s linear infinite;
+  animation: scrollText 5s linear infinite;
 }
 
 /* === ANİMASYONLAR === */
@@ -449,8 +457,8 @@ main {
 }
 
 @keyframes scrollText {
-  from { left: 100%; }
-  to { left: -100%; }
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 
 @keyframes weatherIconMove {
@@ -619,7 +627,7 @@ main {
     gap: 10px;
   }
   
-  #websiteBox, #weatherBox, #solkutu, #menuBox, #examCountdown, #nobetci {
+  #websiteBox, #weatherBox, #islam, #menuBox, #examCountdown, #nobetci {
     width: 220px;
   }
 }
@@ -637,14 +645,14 @@ main {
     width: 100%;
   }
 
-  #websiteBox, #weatherBox, #solkutu, #menuBox, #examCountdown, #nobetci {
+  #websiteBox, #weatherBox, #islam, #menuBox, #examCountdown, #nobetci {
     min-width: 0;
     width: 100%;
   }
 }
 
 /* GİZLİ BAŞLIKLAR */
-#solkutu .boxTitle {
+#islam .boxTitle {
   display: none;
 }
 </style>
@@ -652,7 +660,7 @@ main {
 <body>
 <header>
   <div id="headerLeft">AHMED İSLAMOĞLU<br>ANADOLU İMAM HATİP LİSESİ</div>
-  <div id="headerCenter"><img src="okul_logo.png" alt="Okul Logosu" id="schoolLogo"></div>
+  <div id="headerCenter"><img src="https://i.ibb.co/FvHRJcr/okul-logo.png" alt="Okul Logosu" id="schoolLogo"></div>
   <div id="headerRight">
     <span id="dayMonth"></span>
     <span id="time"></span>
@@ -709,7 +717,7 @@ main {
   </div>
 
   <!-- 3. SATIR -->
-  <div class="box" id="solkutu">
+  <div class="box" id="islam">
     <div id="box1Content">Yükleniyor...</div>
   </div>
 
@@ -898,7 +906,7 @@ class WeatherAnimation {
       for (let i = 0; i < type.count; i++) {
         const snow = document.createElement('img');
         snow.className = `snow-flake ${type.class}`;
-        snow.src = 'icons/weather/AnimasyonKAR.png';
+        snow.src = 'https://i.ibb.co/6JFtbkYM/animasyon-kar.png';
         snow.alt = 'Kar tanesi';
         
         snow.style.left = `${Math.random() * 100}%`;
@@ -922,7 +930,7 @@ class WeatherAnimation {
       for (let i = 0; i < type.count; i++) {
         const snow = document.createElement('img');
         snow.className = `snow-flake ${type.class}`;
-        snow.src = 'icons/weather/AnimasyonKAR.png';
+        snow.src = 'https://i.ibb.co/6JFtbkYM/animasyon-kar.png';
         snow.alt = 'Kar tanesi';
         
         snow.style.left = `${Math.random() * 100}%`;
@@ -944,7 +952,7 @@ class WeatherAnimation {
   createFewClouds() {
     for (let i = 0; i < 2; i++) {
       const cloud = document.createElement('img');
-      cloud.src = 'icons/weather/bulutanimasyon.png';
+      cloud.src = 'https://i.ibb.co/prfZ7krG/animasyon-bulut.png';
       cloud.className = 'cloud-img';
       cloud.style.top = `${30 + Math.random() * 30}%`;
       cloud.style.width = `${80 + Math.random() * 40}px`;
@@ -960,7 +968,7 @@ class WeatherAnimation {
   createCloudy() {
     for (let i = 0; i < 5; i++) {
       const cloud = document.createElement('img');
-      cloud.src = 'icons/weather/bulutanimasyon.png';
+      cloud.src = 'https://i.ibb.co/prfZ7krG/animasyon-bulut.png';
       cloud.className = 'cloud-img';
       cloud.style.top = `${20 + Math.random() * 50}%`;
       cloud.style.width = `${150 + Math.random() * 100}px`;
@@ -1077,23 +1085,23 @@ async function loadWeather() {
     document.getElementById("desc").innerText = displayDesc;
 
     // İkonu ayarla
-    const iconMap = {
-      'clear': 'sunny.png',
-      'few clouds': 'cloudy.png',
-      'scattered clouds': 'cloudy.png',
-      'cloudy': 'cloudy.png',
-      'rain': 'rainy.png',
-      'light rain': 'rainy.png',
-      'heavy rain': 'rainy.png',
-      'snow': 'snowy.png',
-      'light snow': 'snowy.png',
-      'thunderstorm': 'thunderstorm.png',
-      'drizzle': 'rainy.png',
-      'fog': 'cloudy.png'
-    };
+// İkonu ayarla - DÜZELTİLMİŞ HALİ
+const iconMap = {
+  'clear': 'https://i.ibb.co/nMGFsvFZ/sunny.png',
+  'few clouds': 'https://i.ibb.co/PsJcCksK/cloudy.png', 
+  'scattered clouds': 'https://i.ibb.co/PsJcCksK/cloudy.png',
+  'cloudy': 'https://i.ibb.co/PsJcCksK/cloudy.png',
+  'rain': 'https://i.ibb.co/7JJ2bHmv/rainy.png',
+  'light rain': 'https://i.ibb.co/Z6CPWfmb/light-rain.png',
+  'heavy rain': 'https://i.ibb.co/XkG5bQLV/heavy-rain.png',
+  'snow': 'https://i.ibb.co/KpYyTL3p/snowy.png',
+  'light snow': 'https://i.ibb.co/B22f8nKS/snowy.png',
+  'thunderstorm': 'https://i.ibb.co/VYMPDjnD/thunderstorm.png',
+  'drizzle': 'https://i.ibb.co/0VdZDrbY/rainy.png',
+  'fog': 'https://i.ibb.co/Z6LPQmfx/cloudy.png'
+};
 
-    document.getElementById("weatherIcon").src = "icons/weather/" + (iconMap[weatherType] || "cloudy.png");
-
+document.getElementById("weatherIcon").src = iconMap[weatherType] || 'https://i.ibb.co/Z6LPQmfx/cloudy.png';
     // Animasyonu başlat
     weatherAnim.setWeather(weatherType);
 
@@ -1276,7 +1284,7 @@ setInterval(loadMenu, 3600000);
 const quoteSheetURL = "https://docs.google.com/spreadsheets/d/1p4pq-wpK-oFzufueyKOTmYi_Ic2iVcVTyyhXbfpzBhE/gviz/tq?tqx=out:json&gid=0"; 
 
 function loadDailyQuote() {
-  const solKutuElement = document.getElementById("box1Content");
+  const islamElement = document.getElementById("box1Content");
   const now = new Date();
   const year = now.getFullYear();
   const month = (now.getMonth() + 1).toString().padStart(2, "0");
@@ -1319,12 +1327,12 @@ function loadDailyQuote() {
         }
       }
       
-      solKutuElement.innerHTML = quote.split("\n").join("<br>");
+      islamElement.innerHTML = quote.split("\n").join("<br>");
       fitTextToBox();
     })
     .catch(err => {
       console.error("Günlük Söz Hatası:", err);
-      solKutuElement.innerHTML = "❌ Günlük söz alınamadı";
+      islamElement.innerHTML = "❌ Günlük söz alınamadı";
     });
 }
 
