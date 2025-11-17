@@ -2,6 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <title>Fatih Mehmet Aldemir Panosu</title>
 <style>
 /* === GENEL STİLLER === */
@@ -170,7 +171,7 @@ main {
 #weatherBox {
   grid-column: 4;
   grid-row: 1 / 3;
-  background: linear-gradient(0deg, #000000, #474747);
+  background: linear-gradient(0deg, #821590, #000000);
   position: relative;
   overflow: hidden;
 }
@@ -286,22 +287,22 @@ main {
   position: relative;
   z-index: 2;
   text-shadow: 
-    0 0 10px #002bff,
-    0 0 20px #002bff,
-    0 0 30px #002bff;
+    0 0 0px #002bff,
+    0 0 0px #002bff,
+    0 0 0px #002bff;
   animation: neonGlow 2s ease-in-out infinite alternate;
 }
 
 #desc {
   font-size: 2.5em;
-  font-weight: 700;
+  font-weight: 900;
   color: #ffffff;
   position: relative;
   z-index: 2;
     text-shadow: 
-    0 0 10px #002bff,
-    0 0 20px #002bff,
-    0 0 30px #002bff;
+    0 0 0px #002bff,
+    0 0 0px #002bff,
+    0 0 0px #002bff;
   animation: neonGlow 2s ease-in-out infinite alternate;
 }
 
@@ -314,9 +315,9 @@ main {
   position: relative;
   z-index: 2;
     text-shadow: 
-    0 0 10px #002bff,
-    0 0 20px #002bff,
-    0 0 30px #002bff;
+    0 0 0px #002bff,
+    0 0 0px #002bff,
+    0 0 0px #002bff;
   animation: neonGlow 2s ease-in-out infinite alternate;
 }
 
@@ -328,7 +329,7 @@ main {
 }
 
 .forecast .dayName { 
-  font-weight: 700; 
+  font-weight: 900; 
   font-size: 1em; 
   margin-bottom: 3px; 
   color: #ffffff; 
@@ -336,7 +337,7 @@ main {
 
 .forecast .temp { 
   font-size: 1.1em; 
-  font-weight: 700; 
+  font-weight: 900; 
   color: #ffffff; 
 }
 
@@ -409,11 +410,7 @@ main {
   width: 100%;
   margin: 0;
   padding: 2px 0;
-  color: #000000;
-  text-shadow: 
-  0 0 5px #00ff2e,
-  0 0 10px #00ff2e,
-  0 0 15px #00ff2e;
+  color: #ffffff;
   font-weight: 700;
 }
 
@@ -443,8 +440,21 @@ main {
 #marquee span {
   position: absolute;
   white-space: nowrap;
-  top: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 100%;
   animation: scrollText 10s linear infinite;
+}
+
+@keyframes scrollText {
+  0% {
+    left: 100%;
+    transform: translateY(-50%) translateX(0);
+  }
+  100% {
+    left: 0;
+    transform: translateY(-50%) translateX(-100%);
+  }
 }
 
 /* === ANİMASYONLAR === */
@@ -456,10 +466,6 @@ main {
   100% { opacity: 1; }
 }
 
-@keyframes scrollText {
-  from { left: 100%; }
-  to { left: -100%; }
-}
 
 @keyframes weatherIconMove {
   0%   { transform: translateY(0px); }
@@ -559,27 +565,26 @@ main {
 }
 
 /* Güneş */
-.sun-animation {
+.sunny-img {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  background: radial-gradient(circle, #FFD700, #FFA500);
-  border-radius: 50%;
-  animation: sun-pulse 3s ease-in-out infinite;
-  box-shadow: 0 0 20px #FFD700, 0 0 40px #FFA500;
+  top: 40%; /* orta kısımdan geçecek */
+  left: -100px; /* soldan başlayacak */
+  width: 80px; 
+  height: auto;
+  animation: moveSunny 30s linear infinite, pulseSunny 3s ease-in-out infinite;
+  opacity: 0.6;
 }
 
-@keyframes sun-pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
+/* Soldan sağa hareket */
+@keyframes moveSunny {
+  0% { left: -100px; }
+  100% { left: 110%; }
+}
+
+/* Büyüyüp küçülme (pulse) */
+@keyframes pulseSunny {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(13); } /* %20 büyüme */
 }
 
 /* Bulut */
@@ -660,7 +665,7 @@ main {
 <body>
 <header>
   <div id="headerLeft">AHMED İSLAMOĞLU<br>ANADOLU İMAM HATİP LİSESİ</div>
-  <div id="headerCenter"><img src="https://i.ibb.co/FvHRJcr/okul-logo.png" alt="Okul Logosu" id="schoolLogo"></div>
+  <div id="headerCenter"><img src="https://imgr.tr/i/i691b09883ef4f" alt="Okul Logosu" id="schoolLogo"></div>
   <div id="headerRight">
     <span id="dayMonth"></span>
     <span id="time"></span>
@@ -668,20 +673,17 @@ main {
 </header>
 
 <main>
-  <!-- 1. SATIR -->
   <div class="box" id="nobetci">
     <div class="boxTitle">NÖBETÇİ ÖĞRETMENLER</div>
     <div id="nobetciList">Yükleniyor...</div>
   </div>
 
-  <!-- WEB SİTESİ KUTUSU -->
   <div class="box" id="websiteBox">
     <div id="iframeWrapper">
       <iframe id="webFrame" src="https://develiihl.meb.k12.tr/"></iframe>
     </div>
   </div>
 
-  <!-- 2. SATIR -->
   <div class="box" id="examCountdown">
     <div class="countdownItem">
       <div class="countdownTitle">YKS</div>
@@ -716,7 +718,6 @@ main {
     </div>
   </div>
 
-  <!-- 3. SATIR -->
   <div class="box" id="islam">
     <div id="box1Content">Yükleniyor...</div>
   </div>
@@ -727,7 +728,6 @@ main {
   </div>
 </main>
 
-<!-- Marquee -->
 <div id="marquee"><span>HOŞ GELDİNİZ</span></div>
 
 <script>
@@ -906,7 +906,7 @@ class WeatherAnimation {
       for (let i = 0; i < type.count; i++) {
         const snow = document.createElement('img');
         snow.className = `snow-flake ${type.class}`;
-        snow.src = 'https://i.ibb.co/6JFtbkYM/animasyon-kar.png';
+        snow.src = 'https://imgr.tr/i/i691b02a397ce1';
         snow.alt = 'Kar tanesi';
         
         snow.style.left = `${Math.random() * 100}%`;
@@ -930,7 +930,7 @@ class WeatherAnimation {
       for (let i = 0; i < type.count; i++) {
         const snow = document.createElement('img');
         snow.className = `snow-flake ${type.class}`;
-        snow.src = 'https://i.ibb.co/6JFtbkYM/animasyon-kar.png';
+        snow.src = 'https://imgr.tr/i/i691b02a397ce1';
         snow.alt = 'Kar tanesi';
         
         snow.style.left = `${Math.random() * 100}%`;
@@ -943,16 +943,25 @@ class WeatherAnimation {
   }
 
   createSunny() {
-    const sun = document.createElement('div');
-    sun.className = 'sun-animation';
-    this.container.appendChild(sun);
+    for (let i = 0; i < 2; i++) {
+      const sunny = document.createElement('img');
+      sunny.src = 'https://imgr.tr/i/i691b331a66f9c';
+      sunny.className = 'sunny-img';
+      sunny.style.top = `${40 + Math.random() * 20}%`;
+      sunny.style.width = `${80 + Math.random() * 40}px`;
+      sunny.style.animationDuration = `${10 + Math.random() * 10}s`;
+      sunny.style.animationDelay = `${Math.random() * 10}s`;
+      sunny.style.opacity = '0.4';
+      this.container.appendChild(sunny);
+    }
   }
+
 
   // AZ BULUTLU
   createFewClouds() {
     for (let i = 0; i < 2; i++) {
       const cloud = document.createElement('img');
-      cloud.src = 'https://i.ibb.co/prfZ7krG/animasyon-bulut.png';
+      cloud.src = 'https://imgr.tr/i/i691b02a395ee5';
       cloud.className = 'cloud-img';
       cloud.style.top = `${30 + Math.random() * 30}%`;
       cloud.style.width = `${80 + Math.random() * 40}px`;
@@ -961,14 +970,13 @@ class WeatherAnimation {
       cloud.style.opacity = '0.4';
       this.container.appendChild(cloud);
     }
-    this.createSunny();
   }
 
   // ÇOK BULUTLU
   createCloudy() {
     for (let i = 0; i < 5; i++) {
       const cloud = document.createElement('img');
-      cloud.src = 'https://i.ibb.co/prfZ7krG/animasyon-bulut.png';
+      cloud.src = 'https://imgr.tr/i/i691b02a395ee5';
       cloud.className = 'cloud-img';
       cloud.style.top = `${20 + Math.random() * 50}%`;
       cloud.style.width = `${150 + Math.random() * 100}px`;
@@ -1087,21 +1095,21 @@ async function loadWeather() {
     // İkonu ayarla
 // İkonu ayarla - DÜZELTİLMİŞ HALİ
 const iconMap = {
-  'clear': 'https://i.ibb.co/nMGFsvFZ/sunny.png',
-  'few clouds': 'https://i.ibb.co/PsJcCksK/cloudy.png', 
-  'scattered clouds': 'https://i.ibb.co/PsJcCksK/cloudy.png',
-  'cloudy': 'https://i.ibb.co/PsJcCksK/cloudy.png',
-  'rain': 'https://i.ibb.co/7JJ2bHmv/rainy.png',
-  'light rain': 'https://i.ibb.co/Z6CPWfmb/light-rain.png',
-  'heavy rain': 'https://i.ibb.co/XkG5bQLV/heavy-rain.png',
-  'snow': 'https://i.ibb.co/KpYyTL3p/snowy.png',
-  'light snow': 'https://i.ibb.co/B22f8nKS/snowy.png',
-  'thunderstorm': 'https://i.ibb.co/VYMPDjnD/thunderstorm.png',
-  'drizzle': 'https://i.ibb.co/0VdZDrbY/rainy.png',
-  'fog': 'https://i.ibb.co/Z6LPQmfx/cloudy.png'
+  'clear': 'https://imgr.tr/i/i691b02a3b0180',
+  'few clouds': 'https://imgr.tr/i/i691b02a399973', 
+  'scattered clouds': 'https://imgr.tr/i/i691b02a399973',
+  'cloudy': 'https://imgr.tr/i/i691b02a399973',
+  'rain': 'https://imgr.tr/i/i691b02a39dcff',
+  'light rain': 'https://imgr.tr/i/i691b02a39af57',
+  'heavy rain': 'https://imgr.tr/i/i691b02a39c71f',
+  'snow': 'https://imgr.tr/i/i691b02a3aeeee',
+  'light snow': 'https://imgr.tr/i/i691b02a3ac137',
+  'thunderstorm': 'https://imgr.tr/i/i691b02a3b1666',
+  'drizzle': 'https://imgr.tr/i/i691b02a39af57',
+  'fog': 'https://imgr.tr/i/i691b010e3597d'
 };
 
-document.getElementById("weatherIcon").src = iconMap[weatherType] || 'https://i.ibb.co/Z6LPQmfx/cloudy.png';
+document.getElementById("weatherIcon").src = iconMap[weatherType] || 'https://imgr.tr/i/i691b02a399973';
     // Animasyonu başlat
     weatherAnim.setWeather(weatherType);
 
