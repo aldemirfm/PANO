@@ -2,8 +2,9 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <title>Fatih Mehmet Aldemir Panosu</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 <style>
 /* === GENEL STİLLER === */
 * { 
@@ -78,6 +79,29 @@ header {
   color: #FFFFFF; 
 }
 
+/* === YÖNETİM PANELİ BUTTON === */
+#adminPanelBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #2f26bf;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 1.5em;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+#adminPanelBtn:hover {
+  background: #0D1A36;
+  transform: scale(1.1);
+}
+
 /* === ANA GRID YAPISI - 4x4 === */
 main {
   flex: 1 1 90%;
@@ -129,6 +153,7 @@ main {
   grid-column: 1;
   grid-row: 1 / 3;
   background: linear-gradient(180deg, #000000, #202d58);
+  color: #ffffff; /* Yazı rengi eklendi */
 }
 
 /* WEB SİTESİ KUTUSU */
@@ -166,6 +191,7 @@ main {
   grid-column: 1;
   grid-row: 3 / 5; 
   background: linear-gradient(0deg, #ff0000, #000000);
+  color: #ffffff; /* Yazı rengi eklendi */
 }
 
 #weatherBox {
@@ -174,6 +200,7 @@ main {
   background: linear-gradient(0deg, #821590, #000000);
   position: relative;
   overflow: hidden;
+  color: #ffffff; /* Yazı rengi eklendi */
 }
 
 /* 3. SATIR */
@@ -189,12 +216,14 @@ main {
     0 8px 32px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.4),
     inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  color: #000000; /* Yazı rengi eklendi */
 }
 
 #menuBox {
   grid-column: 4;
   grid-row: 3 / 5;
   background: linear-gradient(180deg, #000000, #1d6915);
+  color: #ffffff; /* Yazı rengi eklendi */
 }
 
 /* === İÇERİK STİLLERİ === */
@@ -203,6 +232,7 @@ main {
 #nobetciList { 
   text-align: left; 
   font-size: 0.9em; 
+  height: 100%; /* Ekran yüksekliği eklendi */
 }
 
 .nobetPlace { 
@@ -565,26 +595,27 @@ main {
 }
 
 /* Güneş */
-.sunny-img {
+.sun-animation {
   position: absolute;
-  top: 40%; /* orta kısımdan geçecek */
-  left: -100px; /* soldan başlayacak */
-  width: 80px; 
-  height: auto;
-  animation: moveSunny 30s linear infinite, pulseSunny 3s ease-in-out infinite;
-  opacity: 0.6;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, #FFD700, #FFA500);
+  border-radius: 50%;
+  animation: sun-pulse 3s ease-in-out infinite;
+  box-shadow: 0 0 20px #FFD700, 0 0 40px #FFA500;
 }
 
-/* Soldan sağa hareket */
-@keyframes moveSunny {
-  0% { left: -100px; }
-  100% { left: 110%; }
-}
-
-/* Büyüyüp küçülme (pulse) */
-@keyframes pulseSunny {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(13); } /* %20 büyüme */
+@keyframes sun-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
 }
 
 /* Bulut */
@@ -624,35 +655,239 @@ main {
   }
 }
 
+/* === EXCEL YÜKLEME ARAYÜZÜ === */
+#excelUploadModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+}
+
+#excelUploadContent {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+#excelUploadContent h2 {
+  margin-bottom: 20px;
+  color: #2f26bf;
+  text-align: center;
+}
+
+.upload-section {
+  margin-bottom: 25px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.upload-section h3 {
+  margin-bottom: 10px;
+  color: #0D1A36;
+}
+
+.file-input-wrapper {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.file-input-wrapper input[type="file"] {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+}
+
+.file-input-wrapper label {
+  display: block;
+  background: #f0f0f0;
+  padding: 12px;
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.file-input-wrapper label:hover {
+  background: #e0e0e0;
+  border-color: #2f26bf;
+}
+
+.file-name {
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.upload-section button {
+  background: #2f26bf;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+  width: 100%;
+}
+
+.upload-section button:hover {
+  background: #0D1A36;
+}
+
+.upload-section button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+#closeExcelModal {
+  display: block;
+  margin: 20px auto 0;
+  background: #ff0000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 /* === RESPONSIVE TASARIM === */
-@media (max-width: 768px) and (orientation: landscape) {
+@media (max-width: 1200px) {
   main {
-    grid-template-columns: repeat(4, minmax(200px, 1fr));
-    grid-template-rows: auto;
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
   }
   
-  #websiteBox, #weatherBox, #islam, #menuBox, #examCountdown, #nobetci {
-    width: 220px;
+  #nobetci {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+  
+  #websiteBox {
+    grid-column: 2 / 4;
+    grid-row: 1 / 4;
+  }
+  
+  #examCountdown {
+    grid-column: 1;
+    grid-row: 3 / 5;
+  }
+  
+  #weatherBox {
+    grid-column: 2;
+    grid-row: 4 / 6;
+  }
+  
+  #islam {
+    grid-column: 3;
+    grid-row: 4 / 6;
+  }
+  
+  #menuBox {
+    grid-column: 1;
+    grid-row: 5;
   }
 }
 
-@media (max-width: 1024px) and (orientation: landscape) {
-  body {
-    overflow-x: hidden;
-  }
-
+@media (max-width: 768px) {
   main {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    grid-auto-rows: minmax(120px, auto);
-    gap: 10px;
-    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
   }
+  
+  #nobetci {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  #websiteBox {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  
+  #examCountdown {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  
+  #weatherBox {
+    grid-column: 1;
+    grid-row: 4;
+  }
+  
+  #islam {
+    grid-column: 1;
+    grid-row: 5;
+  }
+  
+  #menuBox {
+    grid-column: 1;
+    grid-row: 6;
+  }
+  
+  header {
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  #headerLeft, #headerRight {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  #dayMonth, #time {
+    font-size: 2em;
+  }
+  
+  #marquee {
+    font-size: 3em;
+    min-height: 70px;
+  }
+  
+  #adminPanelBtn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2em;
+    bottom: 10px;
+    right: 10px;
+  }
+}
 
-  #websiteBox, #weatherBox, #islam, #menuBox, #examCountdown, #nobetci {
-    min-width: 0;
-    width: 100%;
+@media (max-width: 480px) {
+  .boxTitle {
+    font-size: 1.5em;
+  }
+  
+  #dayMonth, #time {
+    font-size: 1.5em;
+  }
+  
+  #marquee {
+    font-size: 2em;
+    min-height: 50px;
+  }
+  
+  .countdownTitle {
+    font-size: 2em;
+  }
+  
+  .countdownValue {
+    font-size: 2.5em;
+  }
+  
+  .countdownLabel {
+    font-size: 1.5em;
   }
 }
 
@@ -730,21 +965,379 @@ main {
 
 <div id="marquee"><span>HOŞ GELDİNİZ</span></div>
 
+<button id="adminPanelBtn" title="Excel Yükleme Paneli">⚙️</button>
+
+<div id="excelUploadModal">
+  <div id="excelUploadContent">
+    <h2>Excel Dosyalarını Yükle</h2>
+    
+    <div class="upload-section">
+      <h3>Nöbetçi Öğretmen Listesi</h3>
+      <div class="file-input-wrapper">
+        <input type="file" id="dutyFile" accept=".xlsx, .xls">
+        <label for="dutyFile">Excel Dosyası Seçin</label>
+        <div class="file-name" id="dutyFileName">Dosya seçilmedi</div>
+      </div>
+      <button id="uploadDutyBtn" disabled>Nöbetçi Listesini Yükle</button>
+    </div>
+    
+    <div class="upload-section">
+      <h3>Yemek Listesi</h3>
+      <div class="file-input-wrapper">
+        <input type="file" id="menuFile" accept=".xlsx, .xls">
+        <label for="menuFile">Excel Dosyası Seçin</label>
+        <div class="file-name" id="menuFileName">Dosya seçilmedi</div>
+      </div>
+      <button id="uploadMenuBtn" disabled>Yemek Listesini Yükle</button>
+    </div>
+    
+    <div class="upload-section">
+      <h3>Günün Sözü</h3>
+      <div class="file-input-wrapper">
+        <input type="file" id="quoteFile" accept=".xlsx, .xls">
+        <label for="quoteFile">Excel Dosyası Seçin</label>
+        <div class="file-name" id="quoteFileName">Dosya seçilmedi</div>
+      </div>
+      <button id="uploadQuoteBtn" disabled>Günün Sözünü Yükle</button>
+    </div>
+    
+    <button id="closeExcelModal">Kapat</button>
+  </div>
+</div>
+
 <script>
+// === EXCEL YÜKLEME SİSTEMİ ===
+let dutyData = null;
+let menuData = null;
+let quoteData = null;
+
+// Yönetim paneli butonu
+document.getElementById('adminPanelBtn').addEventListener('click', function() {
+  document.getElementById('excelUploadModal').style.display = 'flex';
+});
+
+// Modal kapatma
+document.getElementById('closeExcelModal').addEventListener('click', function() {
+  document.getElementById('excelUploadModal').style.display = 'none';
+});
+
+// Dosya seçim işleyicileri
+function setupFileInput(fileInputId, fileNameId, buttonId) {
+  const fileInput = document.getElementById(fileInputId);
+  const fileName = document.getElementById(fileNameId);
+  const button = document.getElementById(buttonId);
+  
+  fileInput.addEventListener('change', function(e) {
+    if (this.files.length > 0) {
+      fileName.textContent = this.files[0].name;
+      button.disabled = false;
+    } else {
+      fileName.textContent = 'Dosya seçilmedi';
+      button.disabled = true;
+    }
+  });
+}
+
+// Dosya input'larını ayarla
+setupFileInput('dutyFile', 'dutyFileName', 'uploadDutyBtn');
+setupFileInput('menuFile', 'menuFileName', 'uploadMenuBtn');
+setupFileInput('quoteFile', 'quoteFileName', 'uploadQuoteBtn');
+
+// Excel dosyasını okuma fonksiyonu (GÜNCELLENDİ)
+function readExcelFile(file, callback) {
+  const reader = new FileReader();
+  
+  reader.onload = function(e) {
+    const data = new Uint8Array(e.target.result);
+    
+    try {
+      if (typeof XLSX === 'undefined') {
+        alert("Hata: XLSX kütüphanesi yüklenemedi. İnternet bağlantınızı kontrol edin.");
+        return;
+      }
+      
+      // raw: true ayarı, tarih gibi hücre içeriğini ham (sayısal) formatta tutar.
+      const workbook = XLSX.read(data, {type: 'array', cellDates: false, raw: true}); 
+      
+      // İlk sayfayı al
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+      
+      // JSON formatına dönüştür, header: 1 ile tüm veriler array of array olarak gelir.
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+      
+      callback(jsonData);
+      
+    } catch (error) {
+      console.error("Excel okuma hatası:", error);
+      alert("Excel dosyası işlenirken bir hata oluştu. Dosya formatını kontrol edin.");
+    }
+  };
+  
+  reader.readAsArrayBuffer(file);
+}
+
+// Nöbetçi öğretmen yükleme
+document.getElementById('uploadDutyBtn').addEventListener('click', function() {
+  const fileInput = document.getElementById('dutyFile');
+  if (fileInput.files.length === 0) {
+    alert('Lütfen bir Excel dosyası seçin.');
+    return;
+  }
+  
+  readExcelFile(fileInput.files[0], function(data) {
+    dutyData = data;
+    // Veriyi localStorage'a JSON olarak kaydet
+    localStorage.setItem('dutyData', JSON.stringify(data)); 
+    processDutyData();
+    alert('Nöbetçi öğretmen listesi başarıyla yüklendi ve kaydedildi!');
+    document.getElementById('excelUploadModal').style.display = 'none';
+  });
+});
+
+// Yemek listesi yükleme
+document.getElementById('uploadMenuBtn').addEventListener('click', function() {
+  const fileInput = document.getElementById('menuFile');
+  if (fileInput.files.length === 0) {
+    alert('Lütfen bir Excel dosyası seçin.');
+    return;
+  }
+  
+  readExcelFile(fileInput.files[0], function(data) {
+    menuData = data;
+    // Veriyi localStorage'a JSON olarak kaydet
+    localStorage.setItem('menuData', JSON.stringify(data));
+    processMenuData();
+    alert('Yemek listesi başarıyla yüklendi ve kaydedildi!');
+    document.getElementById('excelUploadModal').style.display = 'none';
+  });
+});
+
+// Günün sözü yükleme (GÜNCELLENDİ: localStorage eklendi)
+document.getElementById('uploadQuoteBtn').addEventListener('click', function() {
+  const fileInput = document.getElementById('quoteFile');
+  if (fileInput.files.length === 0) {
+    alert('Lütfen bir Excel dosyası seçin.');
+    return;
+  }
+  
+  readExcelFile(fileInput.files[0], function(data) {
+    quoteData = data;
+    // Veriyi localStorage'a JSON olarak kaydet
+    localStorage.setItem('quoteData', JSON.stringify(data)); 
+    processQuoteData();
+    alert('Günün sözü başarıyla yüklendi ve kaydedildi!');
+    document.getElementById('excelUploadModal').style.display = 'none';
+  });
+});
+
+// Günün sözü yükleme
+document.getElementById('uploadQuoteBtn').addEventListener('click', function() {
+  const fileInput = document.getElementById('quoteFile');
+  if (fileInput.files.length === 0) {
+    alert('Lütfen bir Excel dosyası seçin.');
+    return;
+  }
+  
+  readExcelFile(fileInput.files[0], function(data) {
+    quoteData = data;
+    processQuoteData();
+    alert('Günün sözü başarıyla yüklendi!');
+    document.getElementById('excelUploadModal').style.display = 'none';
+  });
+});
+
+// Nöbetçi verilerini işleme
+function processDutyData() {
+  if (!dutyData || dutyData.length < 2) {
+    document.getElementById("nobetciList").innerHTML = 'Nöbetçi verisi bulunamadı.';
+    return;
+  }
+  
+  const days = [null,"PAZARTESİ","SALI","ÇARŞAMBA","PERŞEMBE","CUMA",null];
+  const today = days[new Date().getDay()];
+  
+  const headers = dutyData[0].map(h => h?.toString().toUpperCase() || "");
+  const colIndex = headers.indexOf(today);
+  
+  if (colIndex === -1) {
+    document.getElementById("nobetciList").innerHTML = '<span style="font-size:10em;">🥸</span><br>Bugün için nöbet sütunu yok.';
+    return;
+  }
+  
+  let output = "";
+  let hasDuty = false;
+  
+  for (let i = 1; i < dutyData.length; i++) {
+    const place = dutyData[i][0]?.toString() || "";
+    const teacherCell = dutyData[i][colIndex]?.toString() || "";
+    if (!place && !teacherCell) continue;
+    
+    const teachers = teacherCell.split("\n").filter(t => t.trim() !== "");
+    
+    if (teachers.length > 0) {
+      hasDuty = true;
+      output += `<div class="nobetRow">`;
+      if(place) output += `<span class="nobetPlace">${place}:</span> `;
+      output += `<span class="nobetTeacher">`;
+      teachers.forEach(t => {
+        output += `${t}<br>`;
+      });
+      output += `</span>`;
+      output += `</div>`;
+    }
+  }
+  
+  document.getElementById("nobetciList").innerHTML = output || "BUGÜN NÖBET YOK";
+}
+
+// Yemek listesi verilerini işleme
+// Yemek listesi verilerini işleme (GÜNCELLENDİ)
+function processMenuData() {
+  const menuListElement = document.getElementById("menuList");
+  
+  if (!menuData || menuData.length < 2) {
+    menuListElement.innerHTML = '<div class="menu-row">Yemek listesi verisi bulunamadı.</div>';
+    fitMenuText();
+    return;
+  }
+  
+  const now = new Date();
+  const todayDateString = `${now.getDate().toString().padStart(2, "0")}.${(now.getMonth() + 1).toString().padStart(2, "0")}.${now.getFullYear()}`;
+  
+  let output = "Bu güne ait yemek listesi yok.";
+  let found = false;
+  
+  for (let i = 1; i < menuData.length; i++) { // Başlık satırı olan 0'ı atla
+    const row = menuData[i];
+    const dateCell = row[0]; // A Sütunu: Tarih
+    const foodCell = row[1]; // B Sütunu: Yemek
+    
+    if (!dateCell || !foodCell) continue;
+    
+    let sheetDateString = null;
+    
+    // 1. Durum: Excel'in sayısal tarih formatı (40000'li sayılar)
+    if (typeof dateCell === 'number' && dateCell > 1) {
+        // Excel tarihini JS tarihine dönüştür (1900 temel alınarak)
+        const date = new Date(Date.UTC(0, 0, dateCell - 1)); 
+        sheetDateString = `${date.getUTCDate().toString().padStart(2, "0")}.${(date.getUTCMonth() + 1).toString().padStart(2, "0")}.${date.getUTCFullYear()}`;
+    } 
+    // 2. Durum: Normal metin/tarih formatı (d.m.y veya d/m/y)
+    else if (typeof dateCell === 'string') {
+        let trimmedDate = dateCell.trim();
+        // Tarih stringini d.m.yyyy formatına çevir
+        let dateParts = trimmedDate.split(/[\.\/\-]/);
+        if (dateParts.length >= 3) {
+            const sheetDay = dateParts[0].padStart(2, "0");
+            const sheetMonth = dateParts[1].padStart(2, "0");
+            // Yıl 2 haneliyse 20 ekle
+            const sheetYear = dateParts[2].length === 2 ? "20" + dateParts[2] : dateParts[2];
+            sheetDateString = `${sheetDay}.${sheetMonth}.${sheetYear}`;
+        }
+    }
+    
+    if (sheetDateString === todayDateString) {
+      // Yemek hücresindeki tüm satırları al
+      const foods = foodCell.toString().split("\n").filter(food => food.trim() !== "");
+      
+      if (foods.length > 0) {
+        let formattedOutput = '';
+        foods.forEach((food) => {
+          formattedOutput += `<div class="menu-row">${food.trim()}</div>`;
+        });
+        output = formattedOutput;
+        found = true;
+      } else {
+        output = '<div class="menu-row">Yemek listesi boş.</div>';
+        found = true; 
+      }
+      break;
+    }
+  }
+  
+  if (found) {
+    menuListElement.innerHTML = output;
+  } else {
+    menuListElement.innerHTML = `<div class="menu-row">${output}</div>`;
+  }
+
+  fitMenuText();
+}
+
+// Günün sözü verilerini işleme (GÜNCELLENDİ: Sayısal tarih desteği eklendi)
+function processQuoteData() {
+  const islamElement = document.getElementById("box1Content");
+  
+  if (!quoteData || quoteData.length < 2) {
+    islamElement.innerHTML = "Lütfen Günün Sözü listesini yükleyin.";
+    fitTextToBox();
+    return;
+  }
+  
+  const now = new Date();
+  const todayDateString = `${now.getDate().toString().padStart(2, "0")}.${(now.getMonth() + 1).toString().padStart(2, "0")}.${now.getFullYear()}`;
+  
+  let quote = "Bu güne ait ilham verici söz yok.";
+  
+  for (let i = 1; i < quoteData.length; i++) {
+    const row = quoteData[i];
+    const dateCell = row[0]; // A Sütunu: Tarih
+    const quoteCell = row[1]; // B Sütunu: Sözler
+    
+    if (!dateCell || !quoteCell) continue;
+    
+    let sheetDateString = null;
+    
+    // 1. Durum: Excel'in sayısal tarih formatı (40000'li sayılar)
+    if (typeof dateCell === 'number' && dateCell > 1) {
+        // Excel tarihini JS tarihine dönüştür (1900 temel alınarak)
+        const date = new Date(Date.UTC(0, 0, dateCell - 1)); 
+        sheetDateString = `${date.getUTCDate().toString().padStart(2, "0")}.${(date.getUTCMonth() + 1).toString().padStart(2, "0")}.${date.getUTCFullYear()}`;
+    } 
+    // 2. Durum: Normal metin/tarih formatı (gg.aa.yyyy, gg/aa/yyyy, vb.)
+    else if (typeof dateCell === 'string') {
+        let trimmedDate = dateCell.trim();
+        // Tarih stringini d.m.yyyy formatına çevir
+        let dateParts = trimmedDate.split(/[\.\/\-]/);
+        if (dateParts.length >= 3) {
+            const sheetDay = dateParts[0].padStart(2, "0");
+            const sheetMonth = dateParts[1].padStart(2, "0");
+            // Yıl 2 haneliyse 20 ekle
+            const sheetYear = dateParts[2].length === 2 ? "20" + dateParts[2] : dateParts[2];
+            sheetDateString = `${sheetDay}.${sheetMonth}.${sheetYear}`;
+        }
+    }
+    
+    if (sheetDateString === todayDateString) {
+      quote = quoteCell.toString() || "Söz listesi boş.";
+      break;
+    }
+  }
+  
+  // Sözü satır sonlarına göre düzenle
+  islamElement.innerHTML = quote.split("\n").join("<br>");
+  fitTextToBox();
+}
+
 // === METİN SIKIŞTIRMA FONKSİYONLARI ===
 function fitTextToBox() {
   const container = document.getElementById("box1Content");
   const maxHeight = container.clientHeight;
   const maxWidth = container.clientWidth;
+  
+  if (!container.firstElementChild) return; // İçerik yoksa çık
 
   let fontSize = 10;
   container.style.fontSize = fontSize + "px";
 
+  // Metni sığdırana kadar büyüt
   while(container.scrollHeight <= maxHeight && container.scrollWidth <= maxWidth && fontSize < 200) {
     fontSize += 1;
     container.style.fontSize = fontSize + "px";
   }
 
+  // Sınırı aşmadan önceki boyuta geri dön
   container.style.fontSize = (fontSize - 1) + "px";
 }
 
@@ -752,6 +1345,8 @@ function fitMenuText() {
   const container = document.getElementById("menuList");
   const maxHeight = container.clientHeight;
   const maxWidth = container.clientWidth;
+  
+  if (!container.firstElementChild) return; // İçerik yoksa çık
 
   let fontSize = 10;
   container.style.fontSize = fontSize + "px";
@@ -770,8 +1365,9 @@ function enableFullScreen() {
   if (elem.requestFullscreen) elem.requestFullscreen();
   else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
   else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+  window.removeEventListener("click", enableFullScreen);
 }
-window.addEventListener("click", enableFullScreen);
+// window.addEventListener("click", enableFullScreen); // Otomatik tam ekranı devre dışı bıraktım, isteğe bağlı açılabilir
 
 // === TARİH & SAAT ===
 function updateDateTime() {
@@ -810,17 +1406,22 @@ function countdown(target, numEl, hourEl) {
 }
 
 // DOMContentLoaded içinde kullanın:
-setInterval(()=>{
-  // YKS: 20 Haziran 2026 saat 10:30
-  countdown(new Date("2026-06-20T10:30:00"), "yksCountdownNum","yksCountdownHour");
-  // LGS: 14 Haziran 2026 saat 09:30
-  countdown(new Date("2026-06-14T09:30:00"), "lgsCountdownNum","lgsCountdownHour");
-}, 1000);
+document.addEventListener('DOMContentLoaded', () => {
+  setInterval(()=>{
+    // YKS: 20 Haziran 2026 saat 10:30
+    countdown(new Date("2026-06-20T10:30:00"), "yksCountdownNum","yksCountdownHour");
+    // LGS: 14 Haziran 2026 saat 09:30
+    countdown(new Date("2026-06-14T09:30:00"), "lgsCountdownNum","lgsCountdownHour");
+  }, 1000);
+});
+
+
 // === HAVA DURUMU ANİMASYON SİSTEMİ ===
 class WeatherAnimation {
   constructor() {
     this.container = document.getElementById('weatherAnimation');
     this.currentWeather = '';
+    this.thunderstormInterval = null; // Fırtına için intervali sakla
   }
 
   setWeather(weatherType) {
@@ -906,7 +1507,7 @@ class WeatherAnimation {
       for (let i = 0; i < type.count; i++) {
         const snow = document.createElement('img');
         snow.className = `snow-flake ${type.class}`;
-        snow.src = 'https://imgr.tr/i/i691b02a397ce1';
+        snow.src = 'https://i.ibb.co/6JFtbkYM/animasyon-kar.png';
         snow.alt = 'Kar tanesi';
         
         snow.style.left = `${Math.random() * 100}%`;
@@ -930,7 +1531,7 @@ class WeatherAnimation {
       for (let i = 0; i < type.count; i++) {
         const snow = document.createElement('img');
         snow.className = `snow-flake ${type.class}`;
-        snow.src = 'https://imgr.tr/i/i691b02a397ce1';
+        snow.src = 'https://i.ibb.co/6JFtbkYM/animasyon-kar.png';
         snow.alt = 'Kar tanesi';
         
         snow.style.left = `${Math.random() * 100}%`;
@@ -943,25 +1544,16 @@ class WeatherAnimation {
   }
 
   createSunny() {
-    for (let i = 0; i < 2; i++) {
-      const sunny = document.createElement('img');
-      sunny.src = 'https://imgr.tr/i/i691b331a66f9c';
-      sunny.className = 'sunny-img';
-      sunny.style.top = `${40 + Math.random() * 20}%`;
-      sunny.style.width = `${80 + Math.random() * 40}px`;
-      sunny.style.animationDuration = `${10 + Math.random() * 10}s`;
-      sunny.style.animationDelay = `${Math.random() * 10}s`;
-      sunny.style.opacity = '0.4';
-      this.container.appendChild(sunny);
-    }
+    const sun = document.createElement('div');
+    sun.className = 'sun-animation';
+    this.container.appendChild(sun);
   }
-
 
   // AZ BULUTLU
   createFewClouds() {
     for (let i = 0; i < 2; i++) {
       const cloud = document.createElement('img');
-      cloud.src = 'https://imgr.tr/i/i691b02a395ee5';
+      cloud.src = 'https://i.ibb.co/prfZ7krG/animasyon-bulut.png';
       cloud.className = 'cloud-img';
       cloud.style.top = `${30 + Math.random() * 30}%`;
       cloud.style.width = `${80 + Math.random() * 40}px`;
@@ -976,12 +1568,13 @@ class WeatherAnimation {
   createCloudy() {
     for (let i = 0; i < 5; i++) {
       const cloud = document.createElement('img');
-      cloud.src = 'https://imgr.tr/i/i691b02a395ee5';
+      cloud.src = 'https://i.ibb.co/prfZ7krG/animasyon-bulut.png';
       cloud.className = 'cloud-img';
       cloud.style.top = `${20 + Math.random() * 50}%`;
       cloud.style.width = `${150 + Math.random() * 100}px`;
       cloud.style.animationDuration = `${40 + Math.random() * 30}s`;
       cloud.style.animationDelay = `${Math.random() * 10}s`;
+      cloud.style.opacity = '0.8';
       this.container.appendChild(cloud);
     }
   }
@@ -994,7 +1587,7 @@ class WeatherAnimation {
 
   createThunderstorm() {
     this.createHeavyRain();
-    setInterval(() => {
+    this.thunderstormInterval = setInterval(() => {
       if (Math.random() > 0.7) {
         this.container.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
         setTimeout(() => {
@@ -1007,6 +1600,10 @@ class WeatherAnimation {
   clearAnimation() {
     this.container.innerHTML = '';
     this.container.style.backgroundColor = 'transparent';
+    if (this.thunderstormInterval) {
+      clearInterval(this.thunderstormInterval);
+      this.thunderstormInterval = null;
+    }
   }
 }
 
@@ -1093,23 +1690,22 @@ async function loadWeather() {
     document.getElementById("desc").innerText = displayDesc;
 
     // İkonu ayarla
-// İkonu ayarla - DÜZELTİLMİŞ HALİ
-const iconMap = {
-  'clear': 'https://imgr.tr/i/i691b02a3b0180',
-  'few clouds': 'https://imgr.tr/i/i691b02a399973', 
-  'scattered clouds': 'https://imgr.tr/i/i691b02a399973',
-  'cloudy': 'https://imgr.tr/i/i691b02a399973',
-  'rain': 'https://imgr.tr/i/i691b02a39dcff',
-  'light rain': 'https://imgr.tr/i/i691b02a39af57',
-  'heavy rain': 'https://imgr.tr/i/i691b02a39c71f',
-  'snow': 'https://imgr.tr/i/i691b02a3aeeee',
-  'light snow': 'https://imgr.tr/i/i691b02a3ac137',
-  'thunderstorm': 'https://imgr.tr/i/i691b02a3b1666',
-  'drizzle': 'https://imgr.tr/i/i691b02a39af57',
-  'fog': 'https://imgr.tr/i/i691b010e3597d'
-};
+    const iconMap = {
+      'clear': 'https://i.ibb.co/nMGFsvFZ/sunny.png',
+      'few clouds': 'https://i.ibb.co/PsJcCksK/cloudy.png', 
+      'scattered clouds': 'https://i.ibb.co/PsJcCksK/cloudy.png',
+      'cloudy': 'https://i.ibb.co/PsJcCksK/cloudy.png',
+      'rain': 'https://i.ibb.co/7JJ2bHmv/rainy.png',
+      'light rain': 'https://i.ibb.co/Z6CPWfmb/light-rain.png',
+      'heavy rain': 'https://i.ibb.co/XkG5bQLV/heavy-rain.png',
+      'snow': 'https://i.ibb.co/KpYyTL3p/snowy.png',
+      'light snow': 'https://i.ibb.co/B22f8nKS/snowy.png',
+      'thunderstorm': 'https://i.ibb.co/VYMPDjnD/thunderstorm.png',
+      'drizzle': 'https://i.ibb.co/0VdZDrbY/rainy.png',
+      'fog': 'https://i.ibb.co/Z6LPQmfx/cloudy.png'
+    };
 
-document.getElementById("weatherIcon").src = iconMap[weatherType] || 'https://imgr.tr/i/i691b02a399973';
+    document.getElementById("weatherIcon").src = iconMap[weatherType] || 'https://i.ibb.co/Z6LPQmfx/cloudy.png';
     // Animasyonu başlat
     weatherAnim.setWeather(weatherType);
 
@@ -1125,14 +1721,13 @@ document.getElementById("weatherIcon").src = iconMap[weatherType] || 'https://im
       const date = new Date(item.dt_txt);
       const dateKey = date.toDateString();
       
-      if (!addedDates.has(dateKey)) {
+      if (!addedDates.has(dateKey) && dailyForecast.length < 3) {
         addedDates.add(dateKey);
         dailyForecast.push({
           dayName: daysMap[date.getDay()],
           temp: Math.round(item.main.temp)
         });
       }
-      if (dailyForecast.length >= 3) break;
     }
 
     const forecastContainer = document.querySelector("#weatherBox .forecast");
@@ -1162,194 +1757,39 @@ function updateWeatherHourly() {
 loadWeather();
 updateWeatherHourly();
 
-// === NÖBETÇİ ÖĞRETMEN ===
-const sheetURL = "https://docs.google.com/spreadsheets/d/1oF2cT3UkMBW4c2PgVIsncCYfHV1dJeoB_fS68c8pU1c/gviz/tq?tqx=out:json&gid=0";
-
-function loadDutyTeachers() {
-  fetch(sheetURL)
-    .then(res => res.text())
-    .then(text => {
-      const json = JSON.parse(text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1));
-      const rows = json.table.rows;
-
-      const days = [null,"PAZARTESİ","SALI","ÇARŞAMBA","PERŞEMBE","CUMA",null];
-      const today = days[new Date().getDay()];
-
-      const headers = rows[0].c.map(h => h?.v?.toString().toUpperCase() || "");
-      const colIndex = headers.indexOf(today);
-      if(colIndex === -1) {
-        document.getElementById("nobetciList").innerHTML = '<span style="font-size:10em;">🥸</span>';
-        return;
-      }
-
-      let output = "";
-
-      for (let i = 1; i < rows.length; i++) {
-        const place = rows[i].c[0]?.v || "";
-        const teacherCell = rows[i].c[colIndex]?.v || "";
-        if (!place && !teacherCell) continue;
-
-        const teachers = teacherCell.split("\n").filter(t => t.trim() !== "");
-
-        output += `<div class="nobetRow">`;
-        if(place) output += `<span class="nobetPlace">${place}:</span> `;
-        if(teachers.length) {
-          output += `<span class="nobetTeacher">`;
-          teachers.forEach(t => {
-            output += `${t}<br>`;
-          });
-          output += `</span>`;
-        }
-        output += `</div>`;
-      }
-
-      document.getElementById("nobetciList").innerHTML = output || "BUGÜN NÖBET YOK";
-    })
-    .catch(err => {
-      console.error(err);
-      document.getElementById("nobetciList").innerHTML = "❌ Veri alınamadı";
-    });
-}
-
-loadDutyTeachers();
-setInterval(loadDutyTeachers, 30000);
-
-// === YEMEK LİSTESİ ===
-const menuSheetURL="https://docs.google.com/spreadsheets/d/1ps4RgDTOscAE8FVLU0mWl9hJpnK2XEMlHa8C7c7e9pw/gviz/tq?tqx=out:json&gid=0";
-
-function loadMenu(){
-  const menuListElement = document.getElementById("menuList");
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = (now.getMonth() + 1).toString().padStart(2, "0");
-  const day = now.getDate().toString().padStart(2, "0");
-  
-  const todayDateString = `${day}.${month}.${year}`;
-
-  fetch(menuSheetURL)
-    .then(res => res.text())
-    .then(text => {
-      const jsonText = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
-      const json = JSON.parse(jsonText);
-      const rows = json.table.rows;
-      
-      let output = "Bu güne ait yemek listesi yok.";
-      let found = false;
-
-      for (let i = 0; i < rows.length; i++) {
-        const row = rows[i].c;
-        const sheetDateCell = row[0]?.f || row[0]?.v;
-        
-        if (!sheetDateCell) continue;
-        
-        let sheetDateString = null;
-
-        if (typeof sheetDateCell === 'string' && sheetDateCell.startsWith('Date(')) {
-          const parts = sheetDateCell.match(/\d+/g);
-          if (parts && parts.length >= 3) {
-            const sheetYear = parts[0];
-            const sheetMonth = (parseInt(parts[1]) + 1).toString().padStart(2, "0");
-            const sheetDay = parts[2].toString().padStart(2, "0");
-            sheetDateString = `${sheetDay}.${sheetMonth}.${sheetYear}`;
-          }
-        } else if (typeof sheetDateCell === 'string') {
-          sheetDateString = sheetDateCell.trim();
-        }
-
-        if (sheetDateString === todayDateString) {
-          output = row[1]?.v || "Yemek listesi boş.";
-          found = true;
-          break;
-        }
-      }
-      
-      if (found && output !== "Yemek listesi boş.") {
-        const foods = output.split("\n").filter(food => food.trim() !== "");
-        let formattedOutput = '';
-        
-        foods.forEach((food, index) => {
-          const isLast = index === foods.length - 1;
-          formattedOutput += `<div class="menu-row">${food}</div>`;
-        });
-        
-        menuListElement.innerHTML = formattedOutput;
-        fitMenuText(); 
-      } else {
-        menuListElement.innerHTML = `<div class="menu-row">${output}</div>`;
-        fitMenuText();
-      }
-    })
-    .catch(err => {
-      console.error("Yemek Listesi Hatası:", err);
-      menuListElement.innerHTML = '<div class="menu-row" style="border-bottom: 3px solid red;">❌ Yemek listesi alınamadı</div>';
-    });
-}
-
-loadMenu();
-setInterval(loadMenu, 3600000);
-
-// === GÜNLÜK SÖZLER ===
-const quoteSheetURL = "https://docs.google.com/spreadsheets/d/1p4pq-wpK-oFzufueyKOTmYi_Ic2iVcVTyyhXbfpzBhE/gviz/tq?tqx=out:json&gid=0"; 
-
-function loadDailyQuote() {
-  const islamElement = document.getElementById("box1Content");
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = (now.getMonth() + 1).toString().padStart(2, "0");
-  const day = now.getDate().toString().padStart(2, "0");
-  
-  const todayDateString = `${day}.${month}.${year}`;
-
-  fetch(quoteSheetURL)
-    .then(res => res.text())
-    .then(text => {
-      const jsonText = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
-      const json = JSON.parse(jsonText);
-      const rows = json.table.rows;
-      
-      let quote = "Bu güne ait ilham verici söz yok.";
-
-      for (let i = 0; i < rows.length; i++) {
-        const row = rows[i].c;
-        const sheetDateCell = row[0]?.f || row[0]?.v;
-        
-        if (!sheetDateCell) continue;
-        
-        let sheetDateString = null;
-
-        if (typeof sheetDateCell === 'string' && sheetDateCell.startsWith('Date(')) {
-          const parts = sheetDateCell.match(/\d+/g);
-          if (parts && parts.length >= 3) {
-            const sheetYear = parts[0];
-            const sheetMonth = (parseInt(parts[1]) + 1).toString().padStart(2, "0");
-            const sheetDay = parts[2].toString().padStart(2, "0");
-            sheetDateString = `${sheetDay}.${sheetMonth}.${sheetYear}`;
-          }
-        } else if (typeof sheetDateCell === 'string') {
-          sheetDateString = sheetDateCell.trim();
-        }
-
-        if (sheetDateString === todayDateString) {
-          quote = row[1]?.v || "Söz listesi boş.";
-          break;
-        }
-      }
-      
-      islamElement.innerHTML = quote.split("\n").join("<br>");
-      fitTextToBox();
-    })
-    .catch(err => {
-      console.error("Günlük Söz Hatası:", err);
-      islamElement.innerHTML = "❌ Günlük söz alınamadı";
-    });
-}
-
-loadDailyQuote();
-setInterval(loadDailyQuote, 3600000);
-
 // === EVENT LISTENERS ===
 window.addEventListener("resize", fitTextToBox);
 window.addEventListener("resize", fitMenuText);
+
+// Sayfa yüklendiğinde kaydedilmiş Excel verilerini işle (GÜNCELLENDİ)
+window.addEventListener('load', function() {
+  // localStorage'dan verileri çek
+  const savedDutyData = localStorage.getItem('dutyData');
+  const savedMenuData = localStorage.getItem('menuData');
+  const savedQuoteData = localStorage.getItem('quoteData'); // YENİ EKLENDİ
+  
+  // Nöbetçi Listesi
+  if (savedDutyData) {
+    dutyData = JSON.parse(savedDutyData); // JSON'dan JavaScript nesnesine çevir
+    processDutyData();
+  }
+  
+  // Yemek Listesi
+  if (savedMenuData) {
+    menuData = JSON.parse(savedMenuData); // JSON'dan JavaScript nesnesine çevir
+    processMenuData();
+  }
+  
+  // Günün Sözü
+  if (savedQuoteData) { // YENİ KONTROL
+    quoteData = JSON.parse(savedQuoteData); // JSON'dan JavaScript nesnesine çevir
+    processQuoteData();
+  }
+
+  // İlk yüklemede metin sığdırmayı çalıştır (Veri olsun veya olmasın)
+  fitTextToBox();
+  fitMenuText();
+});
 </script>
 </body>
 </html>
